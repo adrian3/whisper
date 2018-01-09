@@ -1,0 +1,99 @@
+<style media="screen">
+  .active {
+    text-decoration: underline;
+  }
+  .column1,
+  .column2 {
+    float:left;
+  }
+  .column1 {
+    width: 66%;
+  }
+  .column2 {
+    width: 34%;
+  }
+  .full-width{
+    width: 100%;
+    overflow: hidden;
+  }
+</style>
+
+<div class="full-width">
+  <div class="column1">
+    <h2>Posts: </h2>
+    <div class="posts"></div>
+  </div>
+
+  <div class="column2">
+    <h4>Categories: </h4>
+    <div class="categories"></div>
+  </div>
+</div>
+
+<script type="text/javascript">
+function formatDate(d){
+  var date = Date.parse(d, "Y-m-d");
+  date = new Date(d)
+    var day = date.getDate();
+    var month = new Array();
+    month[0] = "Jan";
+    month[1] = "Feb";
+    month[2] = "Mar";
+    month[3] = "Apr";
+    month[4] = "May";
+    month[5] = "Jun";
+    month[6] = "Jul";
+    month[7] = "Aug";
+    month[8] = "Sep";
+    month[9] = "Oct";
+    month[10] = "Nov";
+    month[11] = "Dec";
+    var monthName = month[date.getMonth()];
+    var year = date.getFullYear();
+    var seconds = date.getSeconds();
+    var minutes = date.getMinutes();
+    var hours = date.getHours();
+    var time = hours+":"+minutes+":"+seconds;
+    return monthName+' '+day+', '+year;
+}
+
+function filterCategories(category){
+  $('.postRow').slideUp();
+  $('.'+category).slideDown();
+  $('.filter').removeClass("active");
+  $('.category'+category).addClass("active");
+}
+
+function removeSpaces(str){
+  var cleanVar = str.replace(/\s/g, "");
+  cleanVar = cleanVar.replace("/", "");
+  return cleanVar;
+}
+
+var categories = "";
+var posts = "";
+
+function getPosts() {
+  $.getJSON('posts.json', function(data) {
+    // console.log(data);
+    categories = data.categories;
+    categories.sort();
+    posts = data.posts;
+    for (var i = 0; i < categories.length; i++) {
+      var row = "<button class='filter category"+removeSpaces(categories[i])+"' onclick='filterCategories(\""+removeSpaces(categories[i])+"\")'>"+categories[i]+"</button>";
+      $('.categories').append(row);
+    }
+    for (var i = 0; i < posts.length; i++) {
+      var categoryClasses = "";
+      for (var x = 0; x < posts[i].categories.length; x++) {
+        categoryClasses += " "+removeSpaces(posts[i].categories[x]);
+        console.log(posts[i].categories[x]);
+      }
+      var row = "<p class='postRow "+categoryClasses+"'><a href='"+posts[i].fileName+"'>"+posts[i].title+"</a><br>";
+      row += formatDate(posts[i].date_published)+"</p>";
+      $('.posts').append(row);
+    }
+  });
+}
+getPosts();
+</script>

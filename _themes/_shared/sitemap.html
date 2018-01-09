@@ -1,0 +1,75 @@
+<div class="grid-x">
+  <div class="cell small-12 medium-5 medium-offset-1 centered">
+
+     <h1>Categories: </h1>
+     <div class="categories"></div>
+
+  </div>
+  <div class="cell small-12 medium-5">
+    <h1>Posts: </h1>
+    <div class="posts"></div>
+
+  </div>
+</div>
+
+<script type="text/javascript">
+function formatDate(d){
+  var date = Date.parse(d, "Y-m-d");
+  date = new Date(d)
+    var day = date.getDate();
+    var month = new Array();
+    month[0] = "Jan";
+    month[1] = "Feb";
+    month[2] = "Mar";
+    month[3] = "Apr";
+    month[4] = "May";
+    month[5] = "Jun";
+    month[6] = "Jul";
+    month[7] = "Aug";
+    month[8] = "Sep";
+    month[9] = "Oct";
+    month[10] = "Nov";
+    month[11] = "Dec";
+    var monthName = month[date.getMonth()];
+    var year = date.getFullYear();
+    var seconds = date.getSeconds();
+    var minutes = date.getMinutes();
+    var hours = date.getHours();
+    var time = hours+":"+minutes+":"+seconds;
+    return monthName+' '+day+', '+year;
+}
+
+function filterCategories(category){
+  $('.postRow').slideUp();
+  $('.'+category).slideDown();
+}
+
+function removeSpaces(str){
+  var cleanVar = str.replace(/\s/g, "");
+  cleanVar = cleanVar.replace("/", "");
+  return cleanVar;
+}
+
+var categories = "";
+var posts = "";
+// var dates = "";
+$.getJSON('posts.json', function(data) {
+  categories = data.categories;
+  categories.sort();
+  posts = data.posts;
+  for (var i = 0; i < categories.length; i++) {
+    var row = "<a onclick='filterCategories(\""+removeSpaces(categories[i])+"\")'>"+categories[i]+"</a><br>";
+    $('.categories').append(row);
+  }
+  for (var i = 0; i < posts.length; i++) {
+    var categoryClasses = "";
+    for (var x = 0; x < posts[i].categories.length; x++) {
+      categoryClasses += " "+removeSpaces(posts[i].categories[x]);
+      console.log(posts[i].categories[x]);
+    }
+    var row = "<div class='postRow "+categoryClasses+"'><a href='"+posts[i].fileName+"'>"+posts[i].title+"</a><br>";
+    row += formatDate(posts[i].date_published)+"</div>";
+    $('.posts').append(row);
+  }
+});
+</script>

@@ -1,0 +1,63 @@
+
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About the Config File</title>
+
+    <link rel="alternate" type="application/rss+xml"  title="XML Feed for Steam" href="/rss.xml" />
+    <link rel="alternate" title="JSON Feed for Steam" type="application/json" href="/feed.json" />
+
+    <link rel="stylesheet" href="/_themes/minimal/css/splendor.css"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+
+<body class="config">
+    <header>
+    <a class="logo" href="/">Steam</a>
+
+    <ul class="nav">
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/setup.html">Setup</a></li>
+      <li><a href="/dropbox.html">Dropbox</a></li>
+      <li><a href="/archive.html">Blog</a></li>
+    </ul>
+  </header>
+  <div class="container">
+<!---
+title: About the Config File
+published: true
+--->
+<h2>About the Config File</h2>
+<p>While I tried to include comments within the config.php file, you might still have some questions. </p>
+<h2>Site Title, URL, and Copyright Variables</h2>
+<p>The $siteTitle variable is used in the header. The $siteUrl variable is used in a few places, so change this to be the full url of the home page of your steam powered website. The $copyright variable is used in the footer.</p>
+<h2>Set Your Blog Directory</h2>
+<p>The $blogDirectory should be the name of the folder where you blog posts live. This is where Steam will look for blog posts.</p>
+<h2>Theme Configuration</h2>
+<p>The $theme variable is the name of the folder where your theme files live. By default it uses the minimal theme, but you can create your own theme and change this variable to match the name of your new theme's folder.</p>
+<h2>Password Protection</h2>
+<p>The $password variable is used to prevent Steam's admin pages from being publicly accessible. This is optional but recommended. The password you specify is simply passed in the url to add a tiny bit of privacy to your admin screens. Note that this password is visible in the URL of your admin pages, so it isn't <em>that</em> secure. It is better than nothing, however.</p>
+<h2>Dropbox Fields</h2>
+<p>For more info about what goes in the Dropbox section, (<a href="dropbox.html">view the full Dropbox instructions</a>)</p>
+<h2>Custom Filters</h2>
+<p>You might notice a function called customFilter at the bottom of the config file. This is an advanced option that lets you modify the HTML as it is being modified by Steam. This could be handy if you wanted to insert extra HTML into your pages. </p>
+<p>For example, you might want to insert html from one markdown file inside another. In your markdown you could put {{snippet}} where you want the html to go then in the customFilter function look for {{snippet}} inside the $HTML and replace it with the contents of another file. This requires a little bit of php knowledge, but it is there if you need it.</p>
+<div class="nextPost" style="display:none;"></div>
+<div class="previousPost" style="display:none;"></div>
+
+</div>
+
+<footer>
+  <small style="color: #ccc;">&copy; 2018 &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <a style="color: #ccc;" href="/humans.txt">humans.txt</a> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <a style="color: #ccc;" href="/sitemap.xml">sitemap.xml</a> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <a style="color: #ccc;" href="https://adrian3.github.io/steam/">steam powered</a></small>
+</footer>
+
+<script type="text/javascript">
+  // {{customJavascript}}
+</script>
+</body>
+</html>
