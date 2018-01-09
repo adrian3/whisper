@@ -1,21 +1,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
-<atom:link href="file:///Users/adrianhanft/Dropbox/steam//rss.xml" rel="self" type="application/rss+xml" /><title>S</title>
-<link>file:///Users/adrianhanft/Dropbox/steam//rss.xml</link>
+<atom:link href="https://adrian3.github.io/steam/rss.xml" rel="self" type="application/rss+xml" /><title>S</title>
+<link>https://adrian3.github.io/steam/rss.xml</link>
 <description>Steam: RSS Feed</description>
 <item>
 <title>Markdown Kitchen Sink</title>
-<link>file:///Users/adrianhanft/Dropbox/steam//blog/2018/2018-01-06-Kitchen-Sink.md</link>
+<link>https://adrian3.github.io/steam/blog/2018/2018-01-06-Kitchen-Sink.md</link>
 <description></description>
-<guid>file:///Users/adrianhanft/Dropbox/steam/blog/2018/2018-01-06-Kitchen-Sink.md</guid>
+<guid>https://adrian3.github.io/steamblog/2018/2018-01-06-Kitchen-Sink.md</guid>
 <pubDate>Sat, 30 Dec 2017 12:00:00 -0700</pubDate>
 <category>Steam, Demo</category>
 </item>
 <item>
 <title>How To Make A Post With Steam</title>
-<link>file:///Users/adrianhanft/Dropbox/steam//blog/2018/2018-01-07-How-To-Make-A-Post.md</link>
+<link>https://adrian3.github.io/steam/blog/2018/2018-01-07-How-To-Make-A-Post.md</link>
 <description></description>
-<guid>file:///Users/adrianhanft/Dropbox/steam/blog/2018/2018-01-07-How-To-Make-A-Post.md</guid>
+<guid>https://adrian3.github.io/steamblog/2018/2018-01-07-How-To-Make-A-Post.md</guid>
 <pubDate>Sun, 04 Nov 2018 12:00:00 -0700</pubDate>
 <category>Steam, How-To, Blog</category>
 </item>
