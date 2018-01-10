@@ -10,6 +10,8 @@ if (defined('STDIN')) {
 require_once $prefix."_themes/".$theme."/header.php";
  ?>
 
+ <link rel="stylesheet" href="../_themes/minimal/css/steam.css"/>
+
 <div><button><a style="margin-top:75px;" href="/_admin/?password=<?php echo $password; ?>" class="button">Back</a></button></div>
 <h2>Dropbox Sync:</h2>
 

@@ -5,6 +5,8 @@ require_once "../_themes/".$theme."/header.php";
 require_once 'functions.php';
  ?>
 
+ <link rel="stylesheet" href="../_themes/minimal/css/steam.css"/>
+
 <style media="screen">
   .adminRow {
     padding: 10px 0;
