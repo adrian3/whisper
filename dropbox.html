@@ -22,7 +22,6 @@
     <a class="logo" href="https://adrian3.github.io/steam/index.html">Steam</a>
 
     <ul class="nav">
-      <li><a href="https://adrian3.github.io/steam/about.html">About</a></li>
       <li><a href="https://adrian3.github.io/steam/setup.html">Setup</a></li>
       <li><a href="https://adrian3.github.io/steam/dropbox.html">Dropbox</a></li>
       <li><a href="https://adrian3.github.io/steam/archive.html">Blog</a></li>
@@ -37,14 +36,16 @@ title: Dropbox Sync Setup
 <p>In the future I may automate the Dropbox setup process, but for now you need to jump throuh a few hoops. Sorry. It shouldn't be too bad. Here is what you need to do.</p>
 <h2>How to Configure Dropbox</h2>
 <p>Go to:
-<a href="https://www.dropbox.com/developers/apps">https://www.dropbox.com/developers/apps</a></p>
+<a href="https://www.dropbox.com/developers/apps"><a href="https://www.dropbox.com/developers/apps">https://www.dropbox.com/developers/apps</a></a></p>
 <p>Click on &quot;Create App&quot;</p>
 <p>When it asks you to choose an API, select &quot;Dropbox API&quot; </p>
 <p>When it asks you to choose the type of access you need, select &quot;App folder.&quot; (You could select &quot;Full Dropbox,&quot; but most likely your site will be served out of a single folder.)</p>
 <p>Dropbox will ask you name your app. This will be the name of the folder that gets created in your Dropbox folder. You can name it whatever you want as long as the name isn't taken already.</p>
 <p>You will see an &quot;App key&quot; and you can click &quot;show&quot; to see your &quot;App Secret.&quot; You will also need an access token. Click the &quot;Generate&quot; button below &quot;Generated access token&quot; </p>
 <p>Copy these three numbers and add them to your config.php between the quotation marks where it says:</p>
-<p><code>$dropboxKey = ""; $dropboxSecret = ""; $dropboxAccessToken = "";</code></p>
+<pre><code>$dropboxKey = "";  
+$dropboxSecret = "";  
+$dropboxAccessToken = "";  </code></pre>
 <p>That's it. You shouldn't need to touch any other settings from Dropbox. </p>
 <p>To make sure everything is working, visit your <a href="/_admin/dropbox-sync.php">dropbox-sync.php</a> page. You should see your files getting processed. </p>
 <div class="nextPost" style="display:none;"></div>

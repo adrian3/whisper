@@ -13,14 +13,14 @@ I like to organize my blog posts by year, so I create folders for each year and 
 
 Blog posts need to include data that describes the post. This is called front matter or YAML. It looks like this:
 
-`<!---
-title: Put Your Title Here  
-date: Sun, 13 Nov 2017  
-published: false
-categories: Steam, How-To, Blog  
---->`
+	<!---
+	title: Put Your Title Here  
+	date: Sun, 13 Nov 2017  
+	published: false  
+	categories: Steam, How-To, Blog  
+	--->
 
-The title is what will appear in lists of your blog posts and will also be inserted in the HTML's <title> tags. The date should be the date that the post was published. Note the date format. It is a bit rigid, but future versions of Steam might try to be a little looser with this field.
+The title is what will appear in lists of your blog posts and will also be inserted in the HTML's `<title>` tags. The date should be the date that the post was published. Note the date format. It is a bit rigid, but future versions of Steam might try to be a little looser with this field.
 
 If you aren't ready to publish the post yet, set published to false. Otherwise this field is optional. Note that changing a post from "published: true" to "published: false" after a post has been generated does not delete it from your site. This is because Steam tries to be non-destructive, so it doesn't delete html files.
 

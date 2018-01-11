@@ -22,7 +22,6 @@
     <a class="logo" href="https://adrian3.github.io/steam/index.html">Steam</a>
 
     <ul class="nav">
-      <li><a href="https://adrian3.github.io/steam/about.html">About</a></li>
       <li><a href="https://adrian3.github.io/steam/setup.html">Setup</a></li>
       <li><a href="https://adrian3.github.io/steam/dropbox.html">Dropbox</a></li>
       <li><a href="https://adrian3.github.io/steam/archive.html">Blog</a></li>
@@ -37,19 +36,24 @@ title: Steam Setup
 <h2>System Requirements</h2>
 <p>For this to work you need a server with php. Any shared hosting plan should be able to handle it. </p>
 <h2>Installation</h2>
-<p>Copy the Steam files to your server, probably in the root directory if you want Steam to power your homepage.</p>
+<p>First download or clone the <a href="https://github.com/adrian3/steam">Steam git repository</a>. You will note that Steam is made up of three folders, each of which is important. The _admin folder contains a config file that you will edit (see below), the main page where you will manage the syncing (index.php?password=yourpassword), and all the vendor files (which you shouldn't have to mess with).</p>
+<p>Copy the Steam folders (_admin, _dropbox, and _themes) to your server, probably in the root directory if you want Steam to power your homepage. You can delete all the demo files in the _dropbox folder (this is where Steam will put the files it syncs from your Dropbox account). You can also delete the files in the root so all you are left with are the three Steam folders.</p>
 <p>Modify the contents of _admin/config-SAMPLE.php then rename it to config.php. <a href="config.html">For more information about the config.php file, go here</a>.</p>
-<p>You will probably want to change the navigation in your header. To do this, modify the _themes/minimal/nav.php file to suit your needs.</p>
-<p>Create an app in Dropbox (<a href="dropbox.html">Full Dropbox instructions</a>) and edit the dropbox credentials in the &quot;dropbox-sync.php&quot; file.</p>
+<p>Next you will probably want to change the navigation in the header. To do this, modify the _themes/minimal/nav.php file to suit your needs.</p>
+<p>Create an app in Dropbox (<a href="dropbox.html">Full Dropbox instructions</a>) and edit the dropbox credentials in the &quot;config.php&quot; file.</p>
 <p>Put some markdown files into your dropbox folder. </p>
 <p>Visit www.YourWebsite.com/_admin/?password=YourPassword (replace &quot;YourPassword&quot; with whatever you set in the config.php file). Next, click the &quot;sync&quot; button to initiate the first sync between Dropbox and your Steam installation. This will copy all your Dropbox files down and process them into HTML.</p>
 <h2>Syncing</h2>
 <p>Whenever you change a Dropbox file it needs to sync and process the file. You do this by visiting www.YourWebsite.com/_admin/?password=YourPassword or you can setup a cron job to run this task automatically at intervals you define. The cron job would look something like this:</p>
-<p>php -q /Users/username/full/path/to/_admin/dropbox-sync.php password=YourPassword</p>
-<p>If you visit &quot;/_admin/dropbox-sync.php?password=YourPassword&quot; notice that at the bottom I try to generate what I think should be the correct path for your cron job.</p>
+<pre><code>php -q /Users/username/full/path/to/_admin/dropbox-sync.php password=YourPassword</code></pre>
+<p>If you visit &quot;/_admin/index.php?password=YourPassword&quot; notice that at the bottom I try to generate what I think should be the correct path for your cron job.</p>
 <h2>Front Matter</h2>
 <p>Your markdown files can start with some data that looks like this:</p>
-<p><code>&lt;!--- title: Your Amazing Title date: Saturday, 21 Jan 2017 10:18:34 MST published: true ---&gt;</code></p>
+<pre><code>&lt;!---  
+title: Your Amazing Title  
+date: Saturday, 21 Jan 2017 10:18:34 MST  
+published: true  
+---&gt;</code></pre>
 <p>This is completely optional, but this data will populate different parts of the template files. The &quot;title&quot; is used to generate the page title. The &quot;date&quot; is only used for blog posts. You can change &quot;published&quot; field to false if you aren't ready to publish the page yet.  </p>
 <p>If you have used yaml front matter before you will note one difference. Yaml usually starts with &quot;---&quot; and ends with &quot;---&quot;. My implementation changes it slightly to start with &quot;&lt;!---&quot; and end with &quot;---&gt;&quot;. The reason for this difference if you haven't already figured it out is that this is how you comment out code in html. By commenting out the code it lets us have the benefits of yaml without the yaml actually appearing on the page.</p>
 <h2>Gotchas</h2>
@@ -57,8 +61,8 @@ title: Steam Setup
 <p>Because Steam doesn't delete any HTML files after they are created, you may find yourself in a situation where you change a markdown file's YAML from &quot;published: true&quot; to &quot;published: false&quot; thinking this will make the file invisible to visitors on your site. Because the html file is already generated and you didn't manually delete it, it is technically still visible if users navigate directly to that file.</p>
 <h2>Reserved File Names</h2>
 <p>There are certain file names that you should avoid because they will collide with files that steam creates dynamically. They are:</p>
-<p>File names to avoid:
-archive.md
+<p>File names to avoid:</p>
+<pre><code>archive.md
 archive.html
 humans.txt
 feed.json
@@ -67,15 +71,15 @@ pages.json
 rss.xml
 sitemap.xml
 sitemap.md
-sitemap.html</p>
-<p>Folder names to avoid:
-_admin
+sitemap.html</code></pre>
+<p>Folder names to avoid:</p>
+<pre><code>_admin
 _dropbox
 _themes
-_writing</p>
+_blog</code></pre>
 <h1>Running Locally</h1>
 <p>If you want to run Steam locally you need to have php running. I am a Mac user so I usually use MAMP but another method is to open the terminal, cd to the directory where your project lives, then type this:</p>
-<p><code>php -S localhost:8000</code></p>
+<pre><code>php -S localhost:8000</code></pre>
 <p>Then in your browser you should be able to go to: localhost:8000 and view your website.</p>
 <div class="nextPost" style="display:none;"></div>
 <div class="previousPost" style="display:none;"></div>

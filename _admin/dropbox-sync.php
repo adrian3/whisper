@@ -7,15 +7,7 @@ if (defined('STDIN')) {
 } else {
   if ($password !== $_GET['password']) { die("Wrong password."); }
 }
-require_once $prefix."_themes/".$theme."/header.php";
- ?>
 
- <link rel="stylesheet" href="../_themes/minimal/css/steam.css"/>
-
-<div><button><a style="margin-top:75px;" href="/_admin/?password=<?php echo $password; ?>" class="button">Back</a></button></div>
-<h2>Dropbox Sync:</h2>
-
-<?php
 require_once 'functions.php';
 require_once 'vendor/autoload.php';
 require_once 'processor.php';
@@ -118,17 +110,13 @@ else {
   }
 }
 
-echo '<p>Dropbox Files To Download: ';
 $dropboxFilesToDownload = array_diff($dropboxFilesCombined,$downloadedFilesCombined);
 
-if (!$dropboxFilesToDownload) {
-  echo "None";
-}
-else {
+if ($dropboxFilesToDownload) {
   foreach($dropboxFilesToDownload as $fileName) {
 
     // create folders
-    echo $fileName;
+    // echo $fileName;
     if(!file_exists(dirname($prefix."_dropbox/".$fileName))) {
       mkdir(dirname($prefix."_dropbox/".$fileName), 0777, true);
     }
@@ -143,8 +131,8 @@ else {
 
     $fullPath = $prefix ."_dropbox/".$file ."_rev".$fileRev.".".$ext;
 
-    echo "<br>Downloading: ";
-    echo $fullPath;
+    // echo "<br>Downloading: ";
+    // echo $fullPath;
 
     $dropbox->download("/".$cleanFileName, $fullPath);
     $f = str_replace($prefix."_dropbox/","",$fullPath);
@@ -152,13 +140,9 @@ else {
   }
 }
 
-echo "</p><p>Downloaded Files To Delete: ";
 $downloadedFilesToDelete = array_diff($downloadedFilesCombined,$dropboxFilesCombined);
 
-if (!$downloadedFilesToDelete) {
-  echo "None";
-}
-else {
+if ($downloadedFilesToDelete) {
   foreach($downloadedFilesToDelete as $fileName) {
     $f = explode(".",$fileName);
     $pre = $f[0];
@@ -169,18 +153,24 @@ else {
     $cleanFileName = $pre ."_rev".$rev.".".$ext;
     unlink($prefix."_dropbox/".$cleanFileName);
 
-    echo "<br>Deleting: ";
-    echo $cleanFileName;
+    // echo "<br>Deleting: ";
+    // echo $cleanFileName;
   }
 }
 
-echo "</p>";
 RemoveEmptySubFolders($prefix."_dropbox/");
 require_once 'rss.php'; // generate rss feeds:
+
+$pageInfo = '{"downloaded":';
+$pageInfo .= count($dropboxFilesToDownload);
+// $myJSON = json_encode($dropboxFilesToDownload);
+// $pageInfo .= $myJSON;
+$pageInfo .= ',';
+$pageInfo .= '"deleted":';
+$pageInfo .= count($downloadedFilesToDelete);
+// $myJSON = json_encode($downloadedFilesToDelete);
+// $pageInfo .= $myJSON;
+$pageInfo .= '}';
+echo $pageInfo;
+
  ?>
-
- <p>Want to automate this sync process? Schedule this <a href="https://code.tutsplus.com/tutorials/scheduling-tasks-with-cron-jobs--net-8800">Cron Job</a>:<br><code><?php
- echo "php -q ".$prefix."_admin/dropbox-sync.php password=".$password;
- ?></code><p>
-
-<?php include "../_themes/".$theme."/footer.php"; ?>

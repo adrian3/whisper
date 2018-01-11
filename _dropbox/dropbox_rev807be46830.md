@@ -12,7 +12,7 @@ In the future I may automate the Dropbox setup process, but for now you need to 
 ## How to Configure Dropbox
 
 Go to:
-https://www.dropbox.com/developers/apps
+[https://www.dropbox.com/developers/apps](https://www.dropbox.com/developers/apps)
 
 Click on "Create App"
 
@@ -26,9 +26,9 @@ You will see an "App key" and you can click "show" to see your "App Secret." You
 
 Copy these three numbers and add them to your config.php between the quotation marks where it says:
 
-`$dropboxKey = "";  
-$dropboxSecret = "";  
-$dropboxAccessToken = "";`
+	$dropboxKey = "";  
+	$dropboxSecret = "";  
+	$dropboxAccessToken = "";  
 
 That's it. You shouldn't need to touch any other settings from Dropbox. 
 

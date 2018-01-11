@@ -14,10 +14,10 @@ function processFile($filePath){
   global $prefix;
   global $theme;
   if (getExtension($filePath)=="md") {
-    processMD($filePath);
+    return processMD($filePath);
   }
   else {
-    copyFile($filePath);
+    return copyFile($filePath);
   }
 }
 
@@ -30,6 +30,12 @@ function processMD($filePath){
   global $instagramHandle;
   global $copyright;
   global $blogDirectory;
+
+// readme.md files get passed through without processing. Useful for Github hosted sites.
+if (strpos($filePath, 'readme') !== false) {
+  return copyFile($filePath);
+}
+
   ob_start();
   include $prefix."_themes/".$theme."/header.php";
   $header = ob_get_clean();
@@ -74,7 +80,7 @@ if ($published!=="false") {
     // variable replacement: Title
     $html = str_replace('<title></title>','<title>'.$title.'</title>',$html);
 
-    saveFile(renameMD($filePath), $html);
+    return saveFile(renameMD($filePath), $html);
   }
 }
 
@@ -85,11 +91,11 @@ function saveFile($path, $content){
   $myfile = fopen($destination, "w") or die("Unable to open file!");
   fwrite($myfile, $content);
   fclose($myfile);
-  // if (file_exists($destination)) {
-  //   echo '{"success": "'.$path.'"}';
-  // } else{
-  //   echo '{"error": "'.$path.'"}';
-  // }
+  if (file_exists($destination)) {
+    return '{"success": "'.$path.'"}';
+  } else{
+    return '{"error": "'.$path.'"}';
+  }
 }
 
 function copyFile($path){
@@ -98,8 +104,7 @@ function copyFile($path){
   $destination = $prefix . stripRev($path);
   mkdirr(dirname($destination));
   copy($source,$destination);
-
-  // echo '{"success": "'.$path.'"}';
+  return '{"success": "'.$path.'"}';
 }
 
 function mkdirr($path) {
@@ -114,7 +119,7 @@ function getExtension($filePath) {
 
 if ($_GET['path']) {
   $file = $_GET['path'];
-  processFile($file);
+  echo processFile($file);
 }
 
  ?>
