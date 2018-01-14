@@ -1,22 +1,29 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
-<atom:link href="https://adrian3.github.io/steam/rss.xml" rel="self" type="application/rss+xml" /><title>S</title>
-<link>https://adrian3.github.io/steam/rss.xml</link>
-<description>Steam: RSS Feed</description>
+<atom:link href="http://localhost:8888/rss.xml" rel="self" type="application/rss+xml" /><title>W</title>
+<link>http://localhost:8888/rss.xml</link>
+<description>Whisper: RSS Feed</description>
 <item>
 <title>Markdown Kitchen Sink</title>
-<link>https://adrian3.github.io/steam/blog/2018/2018-01-06-Kitchen-Sink.md</link>
+<link>http://localhost:8888/blog/2018/2018-01-06-Kitchen-Sink.md</link>
 <description></description>
-<guid>https://adrian3.github.io/steamblog/2018/2018-01-06-Kitchen-Sink.md</guid>
-<pubDate>Sat, 30 Dec 2017 12:00:00 -0700</pubDate>
-<category>Steam, Demo</category>
+<guid>http://localhost:8888blog/2018/2018-01-06-Kitchen-Sink.md</guid>
+<pubDate>Fri, 12 Jan 2018 12:00:00 -0700</pubDate>
+<category>Whisper, Demo</category>
 </item>
 <item>
-<title>How To Make A Post With Steam</title>
-<link>https://adrian3.github.io/steam/blog/2018/2018-01-07-How-To-Make-A-Post.md</link>
+<title>How To Make A Post With Whisper</title>
+<link>http://localhost:8888/blog/2018/2018-01-07-How-To-Make-A-Post.md</link>
 <description></description>
-<guid>https://adrian3.github.io/steamblog/2018/2018-01-07-How-To-Make-A-Post.md</guid>
-<pubDate>Sun, 04 Nov 2018 12:00:00 -0700</pubDate>
-<category>Steam, How-To, Blog</category>
+<guid>http://localhost:8888blog/2018/2018-01-07-How-To-Make-A-Post.md</guid>
+<pubDate>Sat, 13 Jan 2018 12:00:00 -0700</pubDate>
+<category>Whisper, How-To, Blog</category>
+</item>
+<item>
+<title>Jquery Demo</title>
+<link>http://localhost:8888/blog/2018/2018-01-08-Jquery-Demo.md</link>
+<description></description>
+<guid>http://localhost:8888blog/2018/2018-01-08-Jquery-Demo.md</guid>
+<pubDate>Sun, 14 Jan 2018 12:00:00 -0700</pubDate>
 </item>
 </channel></rss>

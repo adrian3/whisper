@@ -5,72 +5,60 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>How To Make A Post With Whisper</title>
 
-    <link rel="alternate" type="application/rss+xml"  title="XML Feed for Steam" href="https://adrian3.github.io/steam/rss.xml" />
-    <link rel="alternate" title="JSON Feed for Steam" type="application/json" href="https://adrian3.github.io/steam/feed.json" />
+    <link rel="alternate" type="application/rss+xml"  title="XML Feed for Whisper" href="http://localhost:8888/rss.xml" />
+    <link rel="alternate" title="JSON Feed for Whisper" type="application/json" href="http://localhost:8888/feed.json" />
 
     <link href="https://fonts.googleapis.com/css?family=Vollkorn:400,400i,600,600i" rel="stylesheet">
-    <link rel="stylesheet" href="https://adrian3.github.io/steam/_themes/minimal/css/steam.css"/>
+    <link rel="stylesheet" href="http://localhost:8888/_themes/minimal/css/steam.css"/>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
 
 </head>
 
 <body class="2018-01-07-How-To-Make-A-Post">
     <header>
-    <a class="logo" href="https://adrian3.github.io/steam/index.html">Steam</a>
+    <a class="logo" href="http://localhost:8888/index.html">Whisper</a>
 
     <ul class="nav">
-      <li><a href="https://adrian3.github.io/steam/setup.html">Setup</a></li>
-      <li><a href="https://adrian3.github.io/steam/dropbox.html">Dropbox</a></li>
-      <li><a href="https://adrian3.github.io/steam/archive.html">Blog</a></li>
+      <li><a href="http://localhost:8888/setup.html">Setup</a></li>
+      <li><a href="http://localhost:8888/dropbox.html">Dropbox</a></li>
+      <li><a href="http://localhost:8888/archive.html">Blog</a></li>
     </ul>
   </header>
   <div class="container">
-
-<div class="nextPost" style="display:none;"></div>
-<div class="previousPost" style="display:none;"></div>
+<!---
+title: How To Make A Post With Whisper
+date: Sat, 07 Jan 2018 12:00:00 MST
+published: true
+categories: Whisper, How-To, Blog
+--->
+<h1>How To Make A Post With Whisper</h1>
+<p>Blog posts are created from Markdown files saved in you blog folder in Dropbox. You can change the name of this folder to whatever you want, just remember to update the config.php file variable $blogDirectory to match the name of your folder.</p>
+<p>I like to organize my blog posts by year, so I create folders for each year and put my markdown files inside these folders. That is just a personal preference, however. You could put all your posts in the main blog folder directly, or go crazy with sub-folders by year, month, or whatever.</p>
+<p>Blog posts need to include data that describes the post. This is called front matter or YAML. It looks like this:</p>
+<pre><code>&lt;!---
+title: Put Your Title Here  
+date: Sun, 13 Nov 2017  
+published: false  
+categories: Whisper, How-To, Blog  
+---&gt;</code></pre>
+<p>The title is what will appear in lists of your blog posts and will also be inserted in the HTML's <code>&lt;title&gt;</code> tags. The date should be the date that the post was published. Note the date format. It is a bit rigid, but future versions of Whisper might try to be a little looser with this field.</p>
+<p>If you aren't ready to publish the post yet, set published to false. Otherwise this field is optional. Note that changing a post from &quot;published: true&quot; to &quot;published: false&quot; after a post has been generated does not delete it from your site. This is because Whisper tries to be non-destructive, so it doesn't delete html files.</p>
+<p>If you want to specify categories, this is simply a comma separated list. </p>
+<h2>RSS</h2>
+<p>When Whisper syncs a new file from Dropbox it recreates the RSS feeds. Two flavors of RSS are generated, XML and JSON. </p>
+<hr style="margin: 70px 0;"><p>Previous: <a href="/blog/2018/2018-01-06-Kitchen-Sink.html">Markdown Kitchen Sink</a></p><p>Next: <a href="/blog/2018/2018-01-08-Jquery-Demo.html">Jquery Demo</a></p>
 
 </div>
 
 <footer>
-  <small style="color: #ccc;">&copy; 2018 &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <a style="color: #ccc;" href="https://adrian3.github.io/steam/humans.txt">humans.txt</a> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <a style="color: #ccc;" href="https://adrian3.github.io/steam/sitemap.xml">sitemap.xml</a> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <a style="color: #ccc;" href="https://adrian3.github.io/steam/">steam powered</a></small>
+  <small style="color: #ccc;">&copy; 2018 &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <a style="color: #ccc;" href="http://localhost:8888/humans.txt">humans.txt</a> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <a style="color: #ccc;" href="http://localhost:8888/sitemap.xml">sitemap.xml</a> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <a style="color: #ccc;" href="https://adrian3.github.io/steam/">steam powered</a></small>
 </footer>
 
 <script type="text/javascript">
-  var postTitle = document.title;
-var posts = "";
-function getPosts() {
-  $.getJSON('/posts.json', function(data) {
-    posts = data.posts;
-    console.log(posts);
-    for (var i = 0; i < posts.length; i++) {
-      if (posts[i].title==postTitle) {
-        arrayIndex = i;
-
-        prevPostIndex = i-1;
-        if (prevPostIndex>=0) {
-          $('.previousPost').show();
-          $('.previousPost').html('Previous: <a href="/'+posts[prevPostIndex].fileName+'">'+posts[prevPostIndex].title+'</a>');
-        }
-
-        nextPostIndex = i+1;
-        if (nextPostIndex>0&&nextPostIndex<posts.length) {
-          $('.nextPost').show();
-          $('.nextPost').html('Next: <a href="/'+posts[nextPostIndex].fileName+'">'+posts[nextPostIndex].title+'</a>');
-        }
-        // console.log("Index ID: "+arrayIndex);
-
-      }
-      else {
-        // console.log("Not in array");
-      }
-    }
-  });
-}
-getPosts();
-
+  // {{customJavascript}}
 </script>
 </body>
 </html>

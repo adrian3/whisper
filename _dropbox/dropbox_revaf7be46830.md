@@ -4,7 +4,7 @@ title: Dropbox Sync Setup
 
 # Dropbox Sync Setup
 
-Steam is meant to be connected to Dropbox, but this is optional. You _could_ just put markdown file manually into the _dropbox folder and let Steam process them. 
+Whisper is meant to be connected to Dropbox, but this is optional. You _could_ just put markdown file manually into the _dropbox folder and let Whisper process them. 
 
 In the future I may automate the Dropbox setup process, but for now you need to jump throuh a few hoops. Sorry. It shouldn't be too bad. Here is what you need to do.
 

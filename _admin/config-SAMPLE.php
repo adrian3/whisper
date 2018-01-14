@@ -2,7 +2,7 @@
 
 // Change the setting below and rename this file to "config.php"
 
-$siteTitle = "Steam";
+$siteTitle = "Whisper";
 $siteUrl = "https://adrian3.github.io/steam/";
 $copyright = "2018";
 $blogDirectory = "blog"; // this needs to match the name of the folder in your dropbox folder where your blog posts live

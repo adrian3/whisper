@@ -8,6 +8,7 @@
 ehthumbs.db
 Thumbs.db
 
+/images
 _admin/config.php
 _themes/Adrian
 _themes/foundation

@@ -54,7 +54,6 @@ if (strpos($filePath, 'readme') !== false) {
   $date=date_create($publishedDate);
   $publishedDate = date_format($date,"D, d M y H:i:s O");
   $prettyDate = date_format($date,"F j, Y");
-  $includeJquery = getBetween($yaml,"jquery: ","\n");
 
 if ($published!=="false") {
 
@@ -67,24 +66,15 @@ if ($published!=="false") {
       $header = str_replace('{{bodyclass}}',$bodyClass,$header);
     }
 
-    // include jQuery if specified
-    if ($includeJquery=="true") {
-      $header = str_replace('<!-- {{jquery}} -->','<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>',$header);
-    }
-    else {
-      $header = str_replace('<!-- {{jquery}} -->','',$header);
-    }
-
     // if the blog directory is in the file path it is a blog post, add previous/next javascript
-    if (strpos($filePath, $blogDirectory."/") !== false) {
-      $dropboxPosts = listFF($prefix."_dropbox/".$blogDirectory);
-      $postList = json_decode(generateBlogData($dropboxPosts));
-      $prevNextLinks = getPreviousNextPosts($title,$postList->posts);
-      $footer = str_replace('<!-- {{prevNextLinks}} -->',$prevNextLinks,$footer);
+    if (strpos($filePath, $blogDirectory) !== false) {
+      $prevNextJS = file_get_contents($prefix.'_themes/_shared/previousNext.js');
+      $footer = str_replace('// {{customJavascript}}',$prevNextJS,$footer);
       $header = str_replace('<div class="postDate" style="display:none;"></div>',$prettyDate,$header);
     }
 
     $html = $header.$html.$footer;
+
     $html = customFilter($html);
 
     // variable replacement: Title

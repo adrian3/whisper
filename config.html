@@ -7,24 +7,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About the Config File</title>
 
-    <link rel="alternate" type="application/rss+xml"  title="XML Feed for Steam" href="https://adrian3.github.io/steam/rss.xml" />
-    <link rel="alternate" title="JSON Feed for Steam" type="application/json" href="https://adrian3.github.io/steam/feed.json" />
+    <link rel="alternate" type="application/rss+xml"  title="XML Feed for Whisper" href="http://localhost:8888/rss.xml" />
+    <link rel="alternate" title="JSON Feed for Whisper" type="application/json" href="http://localhost:8888/feed.json" />
 
     <link href="https://fonts.googleapis.com/css?family=Vollkorn:400,400i,600,600i" rel="stylesheet">
-    <link rel="stylesheet" href="https://adrian3.github.io/steam/_themes/minimal/css/steam.css"/>
+    <link rel="stylesheet" href="http://localhost:8888/_themes/minimal/css/steam.css"/>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
 
 </head>
 
 <body class="config">
     <header>
-    <a class="logo" href="https://adrian3.github.io/steam/index.html">Steam</a>
+    <a class="logo" href="http://localhost:8888/index.html">Whisper</a>
 
     <ul class="nav">
-      <li><a href="https://adrian3.github.io/steam/setup.html">Setup</a></li>
-      <li><a href="https://adrian3.github.io/steam/dropbox.html">Dropbox</a></li>
-      <li><a href="https://adrian3.github.io/steam/archive.html">Blog</a></li>
+      <li><a href="http://localhost:8888/setup.html">Setup</a></li>
+      <li><a href="http://localhost:8888/dropbox.html">Dropbox</a></li>
+      <li><a href="http://localhost:8888/archive.html">Blog</a></li>
     </ul>
   </header>
   <div class="container">
@@ -35,25 +35,24 @@ published: true
 <h2>About the Config File</h2>
 <p>While I tried to include comments within the config.php file, you might still have some questions. </p>
 <h2>Site Title, URL, and Copyright Variables</h2>
-<p>The $siteTitle variable is used in the header. The $siteUrl variable is used in a few places, so change this to be the full url of the home page of your steam powered website. The $copyright variable is used in the footer.</p>
+<p>The $siteTitle variable is used in the header. The $siteUrl variable is used in a few places, so change this to be the full url of the home page of your Whisper powered website. The $copyright variable is used in the footer.</p>
 <h2>Set Your Blog Directory</h2>
-<p>The $blogDirectory should be the name of the folder where you blog posts live. This is where Steam will look for blog posts.</p>
+<p>The $blogDirectory should be the name of the folder where you blog posts live. This is where Whisper will look for blog posts.</p>
 <h2>Theme Configuration</h2>
 <p>The $theme variable is the name of the folder where your theme files live. By default it uses the minimal theme, but you can create your own theme and change this variable to match the name of your new theme's folder.</p>
 <h2>Password Protection</h2>
-<p>The $password variable is used to prevent Steam's admin pages from being publicly accessible. This is optional but recommended. The password you specify is simply passed in the url to add a tiny bit of privacy to your admin screens. Note that this password is visible in the URL of your admin pages, so it isn't <em>that</em> secure. It is better than nothing, however.</p>
+<p>The $password variable is used to prevent Whisper's admin pages from being publicly accessible. This is optional but recommended. The password you specify is simply passed in the url to add a tiny bit of privacy to your admin screens. Note that this password is visible in the URL of your admin pages, so it isn't <em>that</em> secure. It is better than nothing, however.</p>
 <h2>Dropbox Fields</h2>
 <p>For more info about what goes in the Dropbox section, (<a href="dropbox.html">view the full Dropbox instructions</a>)</p>
 <h2>Custom Filters</h2>
-<p>You might notice a function called customFilter at the bottom of the config file. This is an advanced option that lets you modify the HTML as it is being modified by Steam. This could be handy if you wanted to insert extra HTML into your pages. </p>
+<p>You might notice a function called customFilter at the bottom of the config file. This is an advanced option that lets you modify the HTML as it is being modified by Whisper. This could be handy if you wanted to insert extra HTML into your pages. </p>
 <p>For example, you might want to insert html from one markdown file inside another. In your markdown you could put {{snippet}} where you want the html to go then in the customFilter function look for {{snippet}} inside the $HTML and replace it with the contents of another file. This requires a little bit of php knowledge, but it is there if you need it.</p>
-<div class="nextPost" style="display:none;"></div>
-<div class="previousPost" style="display:none;"></div>
+<!-- {{prevNextLinks}} -->
 
 </div>
 
 <footer>
-  <small style="color: #ccc;">&copy; 2018 &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <a style="color: #ccc;" href="https://adrian3.github.io/steam/humans.txt">humans.txt</a> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <a style="color: #ccc;" href="https://adrian3.github.io/steam/sitemap.xml">sitemap.xml</a> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <a style="color: #ccc;" href="https://adrian3.github.io/steam/">steam powered</a></small>
+  <small style="color: #ccc;">&copy; 2018 &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <a style="color: #ccc;" href="http://localhost:8888/humans.txt">humans.txt</a> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <a style="color: #ccc;" href="http://localhost:8888/sitemap.xml">sitemap.xml</a> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <a style="color: #ccc;" href="https://adrian3.github.io/steam/">steam powered</a></small>
 </footer>
 
 <script type="text/javascript">

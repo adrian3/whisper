@@ -1,8 +1,8 @@
 <!---
 title: Markdown Kitchen Sink
-date: Sat, 30 Dec 2017 12:00:00 MST
+date: Fri, 06 Jan 2018 12:00:00 MST
 published: true
-categories: Steam, Demo
+categories: Whisper, Demo
 --->
 
 # Markdown Kitchen Sink

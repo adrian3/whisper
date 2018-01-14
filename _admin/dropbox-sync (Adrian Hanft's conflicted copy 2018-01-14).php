@@ -75,7 +75,7 @@ foreach($localFileList as $url) {
 $downloadedFolders = array();
 $downloadedFiles = array();
 
-listFolderFiles($prefix."/_dropbox");
+listFolderFiles($prefix."/_dropbox", $downloadedFolders, $downloadedFiles);
 
 // echo "Dropbox Files: ";
 // echo "<br>";
@@ -162,8 +162,6 @@ RemoveEmptySubFolders($prefix."_dropbox/");
 require_once 'rss.php'; // generate rss feeds:
 
 $pageInfo = '{"downloaded":';
-  // foreach($dropboxFilesToDownload as $fileName) { echo $fileName;}
-
 $pageInfo .= count($dropboxFilesToDownload);
 // $myJSON = json_encode($dropboxFilesToDownload);
 // $pageInfo .= $myJSON;

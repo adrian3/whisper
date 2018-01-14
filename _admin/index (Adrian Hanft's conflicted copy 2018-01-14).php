@@ -6,7 +6,6 @@ require_once 'functions.php';
  ?>
 
  <link rel="stylesheet" href="../_themes/minimal/css/steam.css"/>
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <style media="screen">
   .adminRow {
@@ -22,7 +21,7 @@ require_once 'functions.php';
   max-width: 28rem;
   margin: 0 auto;
 }
-.column1, .column2 {
+.column1, .column2, .column3 {
   float:left;
 }
 .column1 {
@@ -34,6 +33,7 @@ require_once 'functions.php';
 
 </style>
 
+
 <h2>Steam Admin</h2>
 
 <p>
@@ -44,11 +44,11 @@ require_once 'functions.php';
 
 <div class="dropboxResults"></div>
 
-<h3>Posts:</h3>
-<div class="posts"></div>
-
 <h3>Pages:</h3>
 <div class="pages"></div>
+
+<h3>Posts:</h3>
+<div class="posts"></div>
 
 <hr>
 
@@ -135,27 +135,30 @@ function formatDate(d){
 
   var posts = "";
   function getPosts() {
-    $('.pages').html('');
-    $('.posts').html('');
-    $.getJSON('getSiteData.php?password=<?php echo $password; ?>', function(data) {
-      posts = data.posts.posts;
-      pages = data.pages.pages;
-      // console.log(posts);
-      // console.log(pages);
+    $.getJSON('../posts.json', function(data) {
+      posts = data.posts;
       for (var i = 0; i < posts.length; i++) {
         shortDropboxFileName = removePrefix(posts[i].dropboxFileName);
         $('.posts').append('<div class="adminRow"><div class="column1">'+posts[i].title+' <br><a href="../'+posts[i].fileName+'">View</a> <span style="margin:0 20px;">|</span> <a onclick="processFile(\''+shortDropboxFileName+'\')">Rebuild</a> <span class='+classSafe(shortDropboxFileName)+'></span></div><div class="column2">Published: <br>'+formatDate(posts[i].date_published)+'</div></div>');
       }
-      for (var i = 0; i < pages.length; i++) {
-        shortDropboxFileName = removePrefix(pages[i].dropboxFileName);
-        var pageTitle = pages[i].fileName+": \""+pages[i].title+"\"";
-        if (pages[i].title=="") {
-          pageTitle = pages[i].fileName;
-        }
-        $('.pages').append('<div class="adminRow"><div class="column1">'+pageTitle+' <br><a href="../'+pages[i].fileName+'">View</a> <span style="margin:0 20px;">|</span> <a onclick="processFile(\''+shortDropboxFileName+'\')">Rebuild</a> <span class='+classSafe(shortDropboxFileName)+'></span></div><div class="column2">Created: <br>'+formatDate(pages[i].pageEditDate)+'</div></div>');
-      }
     });
   }
+
+    var pages = "";
+    function getPages() {
+      $.getJSON('../pages.json', function(data) {
+        pages = data.pages;
+        // console.log(pages);
+        for (var i = 0; i < pages.length; i++) {
+          shortDropboxFileName = removePrefix(pages[i].dropboxFileName);
+          var pageTitle = pages[i].fileName+": \""+pages[i].title+"\"";
+          if (pages[i].title=="") {
+            pageTitle = pages[i].fileName;
+          }
+          $('.pages').append('<div class="adminRow"><div class="column1">'+pageTitle+' <br><a href="../'+pages[i].fileName+'">View</a> <span style="margin:0 20px;">|</span> <a onclick="processFile(\''+shortDropboxFileName+'\')">Rebuild</a> <span class='+classSafe(shortDropboxFileName)+'></span></div><div class="column2">Created: <br>'+formatDate(pages[i].pageEditDate)+'</div></div>');
+        }
+      });
+    }
 
 function syncDropbox() {
   $('.dropboxResults').html("<h3>Dropbox Sync:</h3><p>Sync initiated...</p>");
@@ -169,10 +172,11 @@ function syncDropbox() {
       deleted = 0;
     }
       $('.dropboxResults').html('<h3>Dropbox Sync:</h3><p>Sync complete: '+downloaded+' files downloaded, '+deleted+' files deleted</p>');
-      getPosts();
   });
 }
+
 getPosts();
+getPages();
 
   </script>
 <?php include "../_themes/".$theme."/footer.php"; ?>

@@ -24,7 +24,9 @@ function cleanFileName($path){
 $dropboxFolders = array();
 $dropboxFiles = array();
 
-function listFolderFiles($dir, &$downloadedFolders, &$downloadedFiles){
+function listFolderFiles($dir){
+  global $downloadedFolders;
+  global $downloadedFiles;
     $ffs = scandir($dir);
 
     unset($ffs[array_search('.', $ffs, true)]);
@@ -53,15 +55,17 @@ function listFolderFiles($dir, &$downloadedFolders, &$downloadedFiles){
       }
       else if(is_dir($dir.'/'.$ff)) {
         // just to be safe, make sure the folders wouldn't overwrite the important admin folders later on
-        if ($ff!=="_admin"&&$ff!=="_templates"&&$ff!=="_dropbox"&&$ff!=="images") {
-          listFolderFiles($dir.'/'.$ff,$downloadedFolders, $downloadedFiles);
+        if ($ff!=="_admin"&&$ff!=="_templates"&&$ff!=="_dropbox") {
+          listFolderFiles($dir.'/'.$ff);
           array_push($downloadedFolders,$dir.'/'.$ff);
         }
       }
     }
 }
 
-function listFF($dir, &$dropboxFolders, &$dropboxFiles){
+function listFF($dir){
+  global $dropboxFolders;
+  global $dropboxFiles;
     $ffs = scandir($dir);
 
     unset($ffs[array_search('.', $ffs, true)]);
@@ -80,7 +84,7 @@ function listFF($dir, &$dropboxFolders, &$dropboxFiles){
       else if(is_dir($dir.'/'.$ff)) {
         // just to be safe, make sure the folders wouldn't overwrite the important admin folders later on
         if ($ff!=="_admin"&&$ff!=="_templates"&&$ff!=="_dropbox") {
-          listFF($dir.'/'.$ff,$dropboxFolders, $dropboxFiles);
+          listFF($dir.'/'.$ff);
           array_push($dropboxFolders,$dir.'/'.$ff);
         }
       }
@@ -112,6 +116,137 @@ function RemoveEmptySubFolders($path) {
   }
   if ($empty) rmdir($path);
   return $empty;
+}
+
+function getPreviousNextPosts($postTitle,$postList) {
+  $postList = array_reverse($postList);
+  for ($i=0; $i < count($postList); $i++) {
+    $arrayIndex = $i;
+    if ($postList[$i]->title==$postTitle) {
+      $arrayIndex = $i;
+      $previousPostHTML = "";
+      $nextPostHTML = "";
+      $prevPostIndex = $i-1;
+      if ($prevPostIndex>=0) {
+        $previousPostHTML = '<p>Previous: <a href="/'.$postList[$prevPostIndex]->fileName.'">'.$postList[$prevPostIndex]->title.'</a></p>';
+      }
+      $nextPostIndex = $i+1;
+      if ($nextPostIndex<count($postList)) {
+        $nextPostHTML = '<p>Next: <a href="/'.$postList[$nextPostIndex]->fileName.'">'.$postList[$nextPostIndex]->title.'</a></p>';
+      }
+    }
+  }
+  return('<hr style="margin: 70px 0;">'.$previousPostHTML . $nextPostHTML);
+}
+
+function generateBlogData(&$dropboxFiles){
+  global $prefix;
+  global $fullFileList;
+  $allCategories = array();
+  $writingList = array();
+  $dbF = array_reverse($dropboxFiles);
+
+  for ($i=0; $i < count($dbF); $i++) {
+    $content = file_get_contents($dbF[$i]);
+    $yaml = getBetween($content,"<!---","--->");
+    if ($yaml) {
+      $file = cleanFileName($dbF[$i]);
+      $title = getBetween($yaml,"title: ","\n");
+      $description = getBetween($yaml,"description: ","\n");
+      $published = getBetween($yaml,"published: ","\n");
+      $publishedDate = getBetween($yaml,"date: ","\n");
+      $date=date_create($publishedDate);
+      $publishedDate = date_format($date,"Y-m-d\TH:i:sP");
+
+      $postCategories = array();
+      $c = getBetween($yaml,"categories: ","\n");
+        $cagegory = explode(",",$c);
+        for ($x=0; $x < count($cagegory); $x++) {
+          if (trim($cagegory[$x])!=="") {
+            array_push($postCategories,trim($cagegory[$x]));
+            if (!in_array(trim($cagegory[$x]), $allCategories)&&trim($cagegory[$x])!=="") {
+              array_push($allCategories,trim($cagegory[$x]));
+            }
+          }
+        }
+
+        if ($published!=="false") {
+      $dropboxPath =str_replace($prefix."_dropbox",'',$dbF[$i]);
+      $item=array(
+        "title"=>$title,
+        "fileName"=>str_replace('.md','.html',$file),
+        "dropboxFileName"=>$dropboxPath,
+        "categories"=>$postCategories,
+        "date_published"=>$publishedDate
+      );
+      array_push($writingList,$item);
+      array_push($fullFileList,str_replace('.md','.html',$file));
+      }
+    }
+  }
+
+  $postInfo = '{"categories":';
+  $categoryJSON = json_encode($allCategories);
+  $postInfo .= $categoryJSON;
+
+  $postInfo .= ',"posts":';
+  $myJSON = json_encode($writingList);
+  $postInfo .= $myJSON;
+  $postInfo .= '}';
+  // echo $postInfo;
+
+  $myfile = fopen($prefix."posts.json", "w") or die("Unable to open file!");
+  fwrite($myfile, $postInfo);
+  fclose($myfile);
+  return $postInfo;
+}
+
+function generatePageData(&$dropboxFiles) {
+  global $prefix;
+  global $fullFileList;
+  global $blogDirectory;
+  $pages = array();
+
+  listFF($prefix."_dropbox");
+  for ($i=0; $i < count($dropboxFiles); $i++) {
+    if (strpos($dropboxFiles[$i], $blogDirectory."/") !== false) {
+      // skip blog posts (anthing with "blog/" in it's path)
+    }
+    else {
+      $originalFile = $dropboxFiles[$i];
+      $newFileMD = cleanFileName($dropboxFiles[$i]);
+      $newFileHTML = renameMD($newFileMD);
+      $pageEditDate = date("F d Y H:i:s",filemtime($prefix.$newFileHTML));
+
+      $content = file_get_contents($dropboxFiles[$i]);
+      $yaml = getBetween($content,"<!---","--->");
+      $title = getBetween($yaml,"title: ","\n");
+      $publishedDate = getBetween($yaml,"date: ","\n");
+      $published = getBetween($yaml,"published: ","\n");
+
+      if ($published!=="false") {
+        $page=array(
+          "title"=>$title,
+          "fileName"=>$newFileHTML,
+          "dropboxFileName"=>$originalFile,
+          "pageEditDate"=>$pageEditDate
+        );
+
+        array_push($pages,$page);
+        array_push($fullFileList,$newFileHTML);
+      }
+    }
+  }
+  $pageInfo = '{"pages":';
+  $myJSON = json_encode($pages);
+  $pageInfo .= $myJSON;
+  $pageInfo .= '}';
+  // echo $pageInfo;
+
+  $myfile = fopen($prefix."pages.json", "w") or die("Unable to open file!");
+  fwrite($myfile, $pageInfo);
+  fclose($myfile);
+  return $pageInfo;
 }
 
  ?>

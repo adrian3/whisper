@@ -1,10 +1,10 @@
 <!---
-title: Steam Setup
+title: Whisper Setup
 --->
 
-# Steam Setup
+# Whisper Setup
 
-Steam is a minimal cms powered by Dropbox and Markdown. The concept is simple. You save markdown into a Dropbox folder and Steam generates a website.
+Whisper is a minimal cms powered by Dropbox and Markdown. The concept is simple. You save markdown into a Dropbox folder and Whisper generates a website.
 
 
 ## System Requirements
@@ -12,9 +12,9 @@ For this to work you need a server with php. Any shared hosting plan should be a
 
 
 ## Installation
-First download or clone the [Steam git repository](https://github.com/adrian3/steam). You will note that Steam is made up of three folders, each of which is important. The _admin folder contains a config file that you will edit (see below), the main page where you will manage the syncing (index.php?password=yourpassword), and all the vendor files (which you shouldn't have to mess with).
+First download or clone the [Whisper git repository](https://github.com/adrian3/Whisper). You will note that Whisper is made up of three folders, each of which is important. The _admin folder contains a config file that you will edit (see below), the main page where you will manage the syncing (index.php?password=yourpassword), and all the vendor files (which you shouldn't have to mess with).
 
-Copy the Steam folders (_admin, _dropbox, and _themes) to your server, probably in the root directory if you want Steam to power your homepage. You can delete all the demo files in the _dropbox folder (this is where Steam will put the files it syncs from your Dropbox account). You can also delete the files in the root so all you are left with are the three Steam folders.
+Copy the Whisper folders (_admin, _dropbox, and _themes) to your server, probably in the root directory if you want Whisper to power your homepage. You can delete all the demo files in the _dropbox folder (this is where Whisper will put the files it syncs from your Dropbox account). You can also delete the files in the root so all you are left with are the three Whisper folders.
 
 Modify the contents of _admin/config-SAMPLE.php then rename it to config.php. [For more information about the config.php file, go here](config.html).
 
@@ -24,7 +24,7 @@ Create an app in Dropbox ([Full Dropbox instructions](dropbox.html)) and edit th
 
 Put some markdown files into your dropbox folder. 
 
-Visit www.YourWebsite.com/_admin/?password=YourPassword (replace "YourPassword" with whatever you set in the config.php file). Next, click the "sync" button to initiate the first sync between Dropbox and your Steam installation. This will copy all your Dropbox files down and process them into HTML.
+Visit www.YourWebsite.com/_admin/?password=YourPassword (replace "YourPassword" with whatever you set in the config.php file). Next, click the "sync" button to initiate the first sync between Dropbox and your Whisper installation. This will copy all your Dropbox files down and process them into HTML.
 
 
 ## Syncing
@@ -52,10 +52,10 @@ If you have used yaml front matter before you will note one difference. Yaml usu
 ## Gotchas
 You should know that once an HTML file is generated on your server it will not be deleted unless you physically delete it. This is for protection because I don't want to blow away files programmatically.
 
-Because Steam doesn't delete any HTML files after they are created, you may find yourself in a situation where you change a markdown file's YAML from "published: true" to "published: false" thinking this will make the file invisible to visitors on your site. Because the html file is already generated and you didn't manually delete it, it is technically still visible if users navigate directly to that file.
+Because Whisper doesn't delete any HTML files after they are created, you may find yourself in a situation where you change a markdown file's YAML from "published: true" to "published: false" thinking this will make the file invisible to visitors on your site. Because the html file is already generated and you didn't manually delete it, it is technically still visible if users navigate directly to that file.
 
 ## Reserved File Names
-There are certain file names that you should avoid because they will collide with files that steam creates dynamically. They are:
+There are certain file names that you should avoid because they will collide with files that Whisper creates dynamically. They are:
 
 File names to avoid:
 
@@ -79,7 +79,7 @@ Folder names to avoid:
 
 
 #Running Locally
-If you want to run Steam locally you need to have php running. I am a Mac user so I usually use MAMP but another method is to open the terminal, cd to the directory where your project lives, then type this:
+If you want to run Whisper locally you need to have php running. I am a Mac user so I usually use MAMP but another method is to open the terminal, cd to the directory where your project lives, then type this:
 
 	php -S localhost:8000
 

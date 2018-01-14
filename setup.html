@@ -5,44 +5,44 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Steam Setup</title>
+    <title>Whisper Setup</title>
 
-    <link rel="alternate" type="application/rss+xml"  title="XML Feed for Steam" href="https://adrian3.github.io/steam/rss.xml" />
-    <link rel="alternate" title="JSON Feed for Steam" type="application/json" href="https://adrian3.github.io/steam/feed.json" />
+    <link rel="alternate" type="application/rss+xml"  title="XML Feed for Whisper" href="http://localhost:8888/rss.xml" />
+    <link rel="alternate" title="JSON Feed for Whisper" type="application/json" href="http://localhost:8888/feed.json" />
 
     <link href="https://fonts.googleapis.com/css?family=Vollkorn:400,400i,600,600i" rel="stylesheet">
-    <link rel="stylesheet" href="https://adrian3.github.io/steam/_themes/minimal/css/steam.css"/>
+    <link rel="stylesheet" href="http://localhost:8888/_themes/minimal/css/steam.css"/>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
 
 </head>
 
 <body class="setup">
     <header>
-    <a class="logo" href="https://adrian3.github.io/steam/index.html">Steam</a>
+    <a class="logo" href="http://localhost:8888/index.html">Whisper</a>
 
     <ul class="nav">
-      <li><a href="https://adrian3.github.io/steam/setup.html">Setup</a></li>
-      <li><a href="https://adrian3.github.io/steam/dropbox.html">Dropbox</a></li>
-      <li><a href="https://adrian3.github.io/steam/archive.html">Blog</a></li>
+      <li><a href="http://localhost:8888/setup.html">Setup</a></li>
+      <li><a href="http://localhost:8888/dropbox.html">Dropbox</a></li>
+      <li><a href="http://localhost:8888/archive.html">Blog</a></li>
     </ul>
   </header>
   <div class="container">
 <!---
-title: Steam Setup
+title: Whisper Setup
 --->
-<h1>Steam Setup</h1>
-<p>Steam is a minimal cms powered by Dropbox and Markdown. The concept is simple. You save markdown into a Dropbox folder and Steam generates a website.</p>
+<h1>Whisper Setup</h1>
+<p>Whisper is a minimal cms powered by Dropbox and Markdown. The concept is simple. You save markdown into a Dropbox folder and Whisper generates a website.</p>
 <h2>System Requirements</h2>
 <p>For this to work you need a server with php. Any shared hosting plan should be able to handle it. </p>
 <h2>Installation</h2>
-<p>First download or clone the <a href="https://github.com/adrian3/steam">Steam git repository</a>. You will note that Steam is made up of three folders, each of which is important. The _admin folder contains a config file that you will edit (see below), the main page where you will manage the syncing (index.php?password=yourpassword), and all the vendor files (which you shouldn't have to mess with).</p>
-<p>Copy the Steam folders (_admin, _dropbox, and _themes) to your server, probably in the root directory if you want Steam to power your homepage. You can delete all the demo files in the _dropbox folder (this is where Steam will put the files it syncs from your Dropbox account). You can also delete the files in the root so all you are left with are the three Steam folders.</p>
+<p>First download or clone the <a href="https://github.com/adrian3/Whisper">Whisper git repository</a>. You will note that Whisper is made up of three folders, each of which is important. The _admin folder contains a config file that you will edit (see below), the main page where you will manage the syncing (index.php?password=yourpassword), and all the vendor files (which you shouldn't have to mess with).</p>
+<p>Copy the Whisper folders (_admin, _dropbox, and _themes) to your server, probably in the root directory if you want Whisper to power your homepage. You can delete all the demo files in the _dropbox folder (this is where Whisper will put the files it syncs from your Dropbox account). You can also delete the files in the root so all you are left with are the three Whisper folders.</p>
 <p>Modify the contents of _admin/config-SAMPLE.php then rename it to config.php. <a href="config.html">For more information about the config.php file, go here</a>.</p>
 <p>Next you will probably want to change the navigation in the header. To do this, modify the _themes/minimal/nav.php file to suit your needs.</p>
 <p>Create an app in Dropbox (<a href="dropbox.html">Full Dropbox instructions</a>) and edit the dropbox credentials in the &quot;config.php&quot; file.</p>
 <p>Put some markdown files into your dropbox folder. </p>
-<p>Visit www.YourWebsite.com/_admin/?password=YourPassword (replace &quot;YourPassword&quot; with whatever you set in the config.php file). Next, click the &quot;sync&quot; button to initiate the first sync between Dropbox and your Steam installation. This will copy all your Dropbox files down and process them into HTML.</p>
+<p>Visit www.YourWebsite.com/_admin/?password=YourPassword (replace &quot;YourPassword&quot; with whatever you set in the config.php file). Next, click the &quot;sync&quot; button to initiate the first sync between Dropbox and your Whisper installation. This will copy all your Dropbox files down and process them into HTML.</p>
 <h2>Syncing</h2>
 <p>Whenever you change a Dropbox file it needs to sync and process the file. You do this by visiting www.YourWebsite.com/_admin/?password=YourPassword or you can setup a cron job to run this task automatically at intervals you define. The cron job would look something like this:</p>
 <pre><code>php -q /Users/username/full/path/to/_admin/dropbox-sync.php password=YourPassword</code></pre>
@@ -58,9 +58,9 @@ published: true
 <p>If you have used yaml front matter before you will note one difference. Yaml usually starts with &quot;---&quot; and ends with &quot;---&quot;. My implementation changes it slightly to start with &quot;&lt;!---&quot; and end with &quot;---&gt;&quot;. The reason for this difference if you haven't already figured it out is that this is how you comment out code in html. By commenting out the code it lets us have the benefits of yaml without the yaml actually appearing on the page.</p>
 <h2>Gotchas</h2>
 <p>You should know that once an HTML file is generated on your server it will not be deleted unless you physically delete it. This is for protection because I don't want to blow away files programmatically.</p>
-<p>Because Steam doesn't delete any HTML files after they are created, you may find yourself in a situation where you change a markdown file's YAML from &quot;published: true&quot; to &quot;published: false&quot; thinking this will make the file invisible to visitors on your site. Because the html file is already generated and you didn't manually delete it, it is technically still visible if users navigate directly to that file.</p>
+<p>Because Whisper doesn't delete any HTML files after they are created, you may find yourself in a situation where you change a markdown file's YAML from &quot;published: true&quot; to &quot;published: false&quot; thinking this will make the file invisible to visitors on your site. Because the html file is already generated and you didn't manually delete it, it is technically still visible if users navigate directly to that file.</p>
 <h2>Reserved File Names</h2>
-<p>There are certain file names that you should avoid because they will collide with files that steam creates dynamically. They are:</p>
+<p>There are certain file names that you should avoid because they will collide with files that Whisper creates dynamically. They are:</p>
 <p>File names to avoid:</p>
 <pre><code>archive.md
 archive.html
@@ -78,16 +78,15 @@ _dropbox
 _themes
 _blog</code></pre>
 <h1>Running Locally</h1>
-<p>If you want to run Steam locally you need to have php running. I am a Mac user so I usually use MAMP but another method is to open the terminal, cd to the directory where your project lives, then type this:</p>
+<p>If you want to run Whisper locally you need to have php running. I am a Mac user so I usually use MAMP but another method is to open the terminal, cd to the directory where your project lives, then type this:</p>
 <pre><code>php -S localhost:8000</code></pre>
 <p>Then in your browser you should be able to go to: localhost:8000 and view your website.</p>
-<div class="nextPost" style="display:none;"></div>
-<div class="previousPost" style="display:none;"></div>
+<!-- {{prevNextLinks}} -->
 
 </div>
 
 <footer>
-  <small style="color: #ccc;">&copy; 2018 &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <a style="color: #ccc;" href="https://adrian3.github.io/steam/humans.txt">humans.txt</a> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <a style="color: #ccc;" href="https://adrian3.github.io/steam/sitemap.xml">sitemap.xml</a> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <a style="color: #ccc;" href="https://adrian3.github.io/steam/">steam powered</a></small>
+  <small style="color: #ccc;">&copy; 2018 &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <a style="color: #ccc;" href="http://localhost:8888/humans.txt">humans.txt</a> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <a style="color: #ccc;" href="http://localhost:8888/sitemap.xml">sitemap.xml</a> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <a style="color: #ccc;" href="https://adrian3.github.io/steam/">steam powered</a></small>
 </footer>
 
 <script type="text/javascript">

@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css?family=Vollkorn:400,400i,600,600i" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo $siteUrl; ?>/_themes/minimal/css/steam.css"/>
 
-    <!-- {{jquery}} -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 </head>
 

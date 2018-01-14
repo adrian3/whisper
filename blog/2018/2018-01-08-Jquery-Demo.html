@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Whisper Themes</title>
+    <title>Jquery Demo</title>
 
     <link rel="alternate" type="application/rss+xml"  title="XML Feed for Whisper" href="http://localhost:8888/rss.xml" />
     <link rel="alternate" title="JSON Feed for Whisper" type="application/json" href="http://localhost:8888/feed.json" />
@@ -13,11 +13,11 @@
     <link href="https://fonts.googleapis.com/css?family=Vollkorn:400,400i,600,600i" rel="stylesheet">
     <link rel="stylesheet" href="http://localhost:8888/_themes/minimal/css/steam.css"/>
 
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 </head>
 
-<body class="themes">
+<body class="2018-01-08-Jquery-Demo">
     <header>
     <a class="logo" href="http://localhost:8888/index.html">Whisper</a>
 
@@ -29,18 +29,29 @@
   </header>
   <div class="container">
 <!---
-title: Whisper Themes
+title: Jquery Demo
+date: Sun, 08 Jan 2018 12:00:00 MST
+published: true
+categories: 
+jquery: true
 --->
-<h1>Themes</h1>
-<p>My plan is to provide a skeleton theme for the following popular responsive frameworks:</p>
-<ul>
-<li>Foundation</li>
-<li>Bootstrap</li>
-<li>MDL</li>
-<li>Tachyons</li>
-</ul>
-<p>In the meantime, Whisper comes with a minimal theme that you can build on. It uses a lightly modified version of the Air theme from <a href="http://markdowncss.github.io">MarkdownCSS</a>.</p>
-<!-- {{prevNextLinks}} -->
+<h1>Jquery Demo</h1>
+<p>Because Whisper is so committed to minimal markup, jQuery is not loaded by default. If you need to use jQuery on a page, add</p>
+<pre><code>jquery: true</code></pre>
+<p>to your page or post's yaml front matter. This page has done just that, allowing the box below to grow when you click on it.</p>
+<div id="box" style="background-color: #98bf21; height:100px; width:100px; margin:20px auto;"></div>
+<p><button id="btn1">Increase width</button> <button id="btn2">Decrease width</button></p>
+<script>
+$(document).ready(function(){
+    $("#btn1").click(function(){
+        $("#box").animate({width: "300px"});
+    });
+    $("#btn2").click(function(){
+        $("#box").animate({width: "100px"});
+    });
+});
+</script>
+<hr style="margin: 70px 0;"><p>Previous: <a href="/blog/2018/2018-01-07-How-To-Make-A-Post.html">How To Make A Post With Whisper</a></p>
 
 </div>
 

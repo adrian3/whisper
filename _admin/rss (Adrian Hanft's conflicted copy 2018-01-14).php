@@ -9,8 +9,7 @@ if (defined('STDIN')) {
 }
 require_once 'functions.php';
 
-function generateRssXml(){
-  global $dropboxFiles;
+function generateRssXml(&$dropboxFiles){
   global $prefix;
   global $siteTitle;
   global $siteUrl;
@@ -70,16 +69,14 @@ function generateRssXml(){
 
       $xml .= '</channel>';
       $xml .= '</rss>';
-
+// echo $xml;
       $myfile = fopen($prefix."rss.xml", "w") or die("Unable to open file!");
       fwrite($myfile, $xml);
       fclose($myfile);
       // echo '{"success": "'.$path.'"}';
-      return $xml;
 }
 
-function generateRssJson(){
-  global $dropboxFiles;
+function generateRssJson(&$dropboxFiles){
   global $prefix;
   $rssFeed = array();
   $items = array();
@@ -92,6 +89,7 @@ function generateRssJson(){
     $description = getBetween($yaml,"description: ","\n");
     $published = getBetween($yaml,"published: ","\n");
     $publishedDate = getBetween($yaml,"date: ","\n");
+// echo $publishedDate."<br>";
     $date=date_create($publishedDate);
     $publishedDate = date_format($date,"Y-m-d\TH:i:sP");
 
@@ -116,12 +114,122 @@ function generateRssJson(){
 
   $myJSON = json_encode($rssFeed);
   $myJSON = trim($myJSON, '[]');
+// echo $myJSON;
   $myfile = fopen($prefix."feed.json", "w") or die("Unable to open file!");
   fwrite($myfile, $myJSON);
   fclose($myfile);
 
   // echo '{"success": "'.$path.'"}';
-  return $myJSON;
+}
+
+function generateBlogData(&$dropboxFiles){
+  global $prefix;
+  global $fullFileList;
+  $allCategories = array();
+  $writingList = array();
+  $dbF = array_reverse($dropboxFiles);
+
+  for ($i=0; $i < count($dbF); $i++) {
+    $content = file_get_contents($dbF[$i]);
+    $yaml = getBetween($content,"<!---","--->");
+    if ($yaml) {
+      $file = cleanFileName($dbF[$i]);
+      $title = getBetween($yaml,"title: ","\n");
+      $description = getBetween($yaml,"description: ","\n");
+      $published = getBetween($yaml,"published: ","\n");
+      $publishedDate = getBetween($yaml,"date: ","\n");
+      $date=date_create($publishedDate);
+      $publishedDate = date_format($date,"Y-m-d\TH:i:sP");
+
+      $postCategories = array();
+      $c = getBetween($yaml,"categories: ","\n");
+        $cagegory = explode(",",$c);
+        for ($x=0; $x < count($cagegory); $x++) {
+          if (trim($cagegory[$x])!=="") {
+            array_push($postCategories,trim($cagegory[$x]));
+            if (!in_array(trim($cagegory[$x]), $allCategories)&&trim($cagegory[$x])!=="") {
+              array_push($allCategories,trim($cagegory[$x]));
+            }
+          }
+        }
+
+        if ($published!=="false") {
+      $dropboxPath =str_replace($prefix."_dropbox",'',$dbF[$i]);
+      $item=array(
+        "title"=>$title,
+        "fileName"=>str_replace('.md','.html',$file),
+        "dropboxFileName"=>$dropboxPath,
+        "categories"=>$postCategories,
+        "date_published"=>$publishedDate
+      );
+      array_push($writingList,$item);
+      array_push($fullFileList,str_replace('.md','.html',$file));
+      }
+    }
+  }
+
+  $postInfo = '{"categories":';
+  $categoryJSON = json_encode($allCategories);
+  $postInfo .= $categoryJSON;
+
+  $postInfo .= ',"posts":';
+  $myJSON = json_encode($writingList);
+  $postInfo .= $myJSON;
+  $postInfo .= '}';
+  // echo $postInfo;
+
+  $myfile = fopen($prefix."posts.json", "w") or die("Unable to open file!");
+  fwrite($myfile, $postInfo);
+  fclose($myfile);
+  return $postInfo;
+}
+
+function generatePageData(&$dropboxFiles) {
+  global $prefix;
+  global $fullFileList;
+  global $blogDirectory;
+  $pages = array();
+
+  listFF($prefix."_dropbox", $dropboxFolders, $dropboxFiles);
+  for ($i=0; $i < count($dropboxFiles); $i++) {
+    if (strpos($dropboxFiles[$i], $blogDirectory."/") !== false) {
+      // skip blog posts (anthing with "blog/" in it's path)
+    }
+    else {
+      $originalFile = $dropboxFiles[$i];
+      $newFileMD = cleanFileName($dropboxFiles[$i]);
+      $newFileHTML = renameMD($newFileMD);
+      $pageEditDate = date("F d Y H:i:s",filemtime($prefix.$newFileHTML));
+
+      $content = file_get_contents($dropboxFiles[$i]);
+      $yaml = getBetween($content,"<!---","--->");
+      $title = getBetween($yaml,"title: ","\n");
+      $publishedDate = getBetween($yaml,"date: ","\n");
+      $published = getBetween($yaml,"published: ","\n");
+
+      if ($published!=="false") {
+        $page=array(
+          "title"=>$title,
+          "fileName"=>$newFileHTML,
+          "dropboxFileName"=>$originalFile,
+          "pageEditDate"=>$pageEditDate
+        );
+
+        array_push($pages,$page);
+        array_push($fullFileList,$newFileHTML);
+      }
+    }
+  }
+  $pageInfo = '{"pages":';
+  $myJSON = json_encode($pages);
+  $pageInfo .= $myJSON;
+  $pageInfo .= '}';
+  // echo $pageInfo;
+
+  $myfile = fopen($prefix."pages.json", "w") or die("Unable to open file!");
+  fwrite($myfile, $pageInfo);
+  fclose($myfile);
+  return $pageInfo;
 }
 
 function generateSitemap($fullFileList) {
@@ -178,8 +286,6 @@ function generateArchive() {
   $header = ob_get_clean();
   ob_start();
   include $prefix."_themes/".$theme."/footer.php";
-  $header = str_replace('<!-- {{jquery}} -->','<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>',$header);
-
   $footer = ob_get_clean();
   $archive = $header.$archive.$footer;
   $myfile = fopen($prefix."archive.html", "w") or die("Unable to open file!");
@@ -191,7 +297,7 @@ $fullFileList = array();
 $dropboxFolders = array();
 $dropboxFiles = array();
 
-$dropboxPosts = listFF($prefix."_dropbox/".$blogDirectory);
+$dropboxPosts = listFF($prefix."_dropbox/".$blogDirectory, $dropboxFolders, $dropboxFiles);
 generateRssJson($dropboxPosts);
 generateRssXml($dropboxPosts);
 generateBlogData($dropboxPosts);

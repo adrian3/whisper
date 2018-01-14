@@ -1,6 +1,7 @@
 <?php include_once "../../_admin/config.php"; ?>
 
-<!-- {{prevNextLinks}} -->
+<div class="nextPost" style="display:none;"></div>
+<div class="previousPost" style="display:none;"></div>
 
 </div>
 
