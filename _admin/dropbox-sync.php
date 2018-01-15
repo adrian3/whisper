@@ -33,7 +33,12 @@ function buildDropboxFileTree($folder) {
       array_push($dropboxFiles,$a);
     }
     else {
-      buildDropboxFileTree($items[$i]->getPathDisplay()."/");
+      if (strpos(strtolower($items[$i]->getPathDisplay()), "drafts") !== false) {
+        // if the path has "drafts" in it, ignore
+      }
+      else {
+        buildDropboxFileTree($items[$i]->getPathDisplay()."/");
+      }
     }
   }
 }

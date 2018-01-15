@@ -55,7 +55,7 @@ function listFolderFiles($dir){
       }
       else if(is_dir($dir.'/'.$ff)) {
         // just to be safe, make sure the folders wouldn't overwrite the important admin folders later on
-        if ($ff!=="_admin"&&$ff!=="_templates"&&$ff!=="_dropbox") {
+        if ($ff!=="_admin"&&$ff!=="_templates"&&$ff!=="_dropbox"&&$ff!=="drafts") {
           listFolderFiles($dir.'/'.$ff);
           array_push($downloadedFolders,$dir.'/'.$ff);
         }
@@ -83,7 +83,7 @@ function listFF($dir){
       }
       else if(is_dir($dir.'/'.$ff)) {
         // just to be safe, make sure the folders wouldn't overwrite the important admin folders later on
-        if ($ff!=="_admin"&&$ff!=="_templates"&&$ff!=="_dropbox") {
+        if ($ff!=="_admin"&&$ff!=="_templates"&&$ff!=="_dropbox"&&$ff!=="drafts") {
           listFF($dir.'/'.$ff);
           array_push($dropboxFolders,$dir.'/'.$ff);
         }
@@ -139,7 +139,7 @@ function getPreviousNextPosts($postTitle,$postList) {
   return('<hr style="margin: 70px 0;">'.$previousPostHTML . $nextPostHTML);
 }
 
-function generateBlogData(&$dropboxFiles){
+function generateBlogData($dropboxFiles){
   global $prefix;
   global $fullFileList;
   $allCategories = array();
@@ -201,7 +201,7 @@ function generateBlogData(&$dropboxFiles){
   return $postInfo;
 }
 
-function generatePageData(&$dropboxFiles) {
+function generatePageData($dropboxFiles) {
   global $prefix;
   global $fullFileList;
   global $blogDirectory;
@@ -216,7 +216,7 @@ function generatePageData(&$dropboxFiles) {
       $originalFile = $dropboxFiles[$i];
       $newFileMD = cleanFileName($dropboxFiles[$i]);
       $newFileHTML = renameMD($newFileMD);
-      $pageEditDate = date("F d Y H:i:s",filemtime($prefix.$newFileHTML));
+      $pageEditDate = date("F d Y H:i:s",filemtime($dropboxFiles[$i]));
 
       $content = file_get_contents($dropboxFiles[$i]);
       $yaml = getBetween($content,"<!---","--->");

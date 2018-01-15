@@ -5,7 +5,7 @@ require_once "../_themes/".$theme."/header.php";
 require_once 'functions.php';
  ?>
 
- <link rel="stylesheet" href="../_themes/minimal/css/steam.css"/>
+ <link rel="stylesheet" href="../_themes/minimal/css/whisper.css"/>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <style media="screen">
@@ -34,7 +34,7 @@ require_once 'functions.php';
 
 </style>
 
-<h2>Steam Admin</h2>
+<h2>Whisper Admin</h2>
 
 <p>
   <button class="button btn" onclick="syncDropbox();">Dropbox Sync</button>
@@ -129,6 +129,12 @@ function formatDate(d){
     var seconds = date.getSeconds();
     var minutes = date.getMinutes();
     var hours = date.getHours();
+    if (seconds < 10) {
+      seconds = '0' + seconds;
+    }
+    if (minutes < 10) {
+      minutes = '0' + minutes;
+    }
     var time = hours+":"+minutes+":"+seconds;
     return monthName+' '+day+', '+year+ " "+ time;
 }

@@ -12,7 +12,7 @@
     <link rel="alternate" title="JSON Feed for <?php echo $siteTitle; ?>" type="application/json" href="<?php echo $siteUrl; ?>/feed.json" />
 
     <link href="https://fonts.googleapis.com/css?family=Vollkorn:400,400i,600,600i" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo $siteUrl; ?>/_themes/minimal/css/steam.css"/>
+    <link rel="stylesheet" href="<?php echo $siteUrl; ?>/_themes/minimal/css/whisper.css"/>
 
     <!-- {{jquery}} -->
 

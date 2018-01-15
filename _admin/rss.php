@@ -9,8 +9,7 @@ if (defined('STDIN')) {
 }
 require_once 'functions.php';
 
-function generateRssXml(){
-  global $dropboxFiles;
+function generateRssXml($dropboxFiles){
   global $prefix;
   global $siteTitle;
   global $siteUrl;
@@ -78,8 +77,7 @@ function generateRssXml(){
       return $xml;
 }
 
-function generateRssJson(){
-  global $dropboxFiles;
+function generateRssJson($dropboxFiles){
   global $prefix;
   $rssFeed = array();
   $items = array();
