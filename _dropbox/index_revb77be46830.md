@@ -3,7 +3,8 @@ title: Introducing Whisper
 published: true
 --->
 
-## Introducing Whisper
+
+# Introducing Whisper 
 
 Whisper generates a website from markdown files stored in Dropbox. 
 

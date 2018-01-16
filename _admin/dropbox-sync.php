@@ -45,38 +45,6 @@ function buildDropboxFileTree($folder) {
 buildDropboxFileTree("/");
 
 // Create Array of Items in Local Folder
-$downloadedFiles = array();
-$downloadedFolders = array();
-$log_directory = '../_dropbox';
-$localFileList = array();
-if (is_dir($log_directory)) {
-  if ($handle = opendir($log_directory)) {
-    while(($file = readdir($handle)) !== FALSE) {
-      $localFileList[] = $file;
-    }
-    closedir($handle);
-  }
-}
-
-foreach($localFileList as $url) {
-    $path = parse_url($url, PHP_URL_PATH);
-    $ext = pathinfo($path, PATHINFO_EXTENSION);
-    if ($path!=="."&&$path!==".."&&$path!==".DS_Store") {
-      if (strpos($path, ".") !== false) {
-        $rev = explode("_rev",$path);
-        $cleanPath = $rev[0].".".$ext;
-        $rev = explode('.'.$ext,$rev[1]);
-        $revID = $rev[0];
-        $a=array("path"=>$cleanPath,"rev"=>$revID);
-        array_push($downloadedFiles,$a);
-      }
-      else {
-        array_push($downloadedFolders,$path);
-      }
-    }
-}
-
-// Now loop through local folders
 $downloadedFolders = array();
 $downloadedFiles = array();
 
@@ -119,14 +87,9 @@ $dropboxFilesToDownload = array_diff($dropboxFilesCombined,$downloadedFilesCombi
 
 if ($dropboxFilesToDownload) {
   foreach($dropboxFilesToDownload as $fileName) {
-
-    // create folders
-    // echo $fileName;
     if(!file_exists(dirname($prefix."_dropbox/".$fileName))) {
       mkdir(dirname($prefix."_dropbox/".$fileName), 0777, true);
     }
-
-    // filename comes in like this: index.md_revf77747670
     $fileNameParts = explode("_rev",$fileName);
     $cleanFileName = $fileNameParts[0];
     $fileRev = $fileNameParts[1];
@@ -135,10 +98,6 @@ if ($dropboxFilesToDownload) {
     $file = $f[0];
 
     $fullPath = $prefix ."_dropbox/".$file ."_rev".$fileRev.".".$ext;
-
-    // echo "<br>Downloading: ";
-    // echo $fullPath;
-
     $dropbox->download("/".$cleanFileName, $fullPath);
     $f = str_replace($prefix."_dropbox/","",$fullPath);
     processFile($f);
@@ -157,9 +116,6 @@ if ($downloadedFilesToDelete) {
     $rev = $e[1];
     $cleanFileName = $pre ."_rev".$rev.".".$ext;
     unlink($prefix."_dropbox/".$cleanFileName);
-
-    // echo "<br>Deleting: ";
-    // echo $cleanFileName;
   }
 }
 
@@ -167,16 +123,10 @@ RemoveEmptySubFolders($prefix."_dropbox/");
 require_once 'rss.php'; // generate rss feeds:
 
 $pageInfo = '{"downloaded":';
-  // foreach($dropboxFilesToDownload as $fileName) { echo $fileName;}
-
 $pageInfo .= count($dropboxFilesToDownload);
-// $myJSON = json_encode($dropboxFilesToDownload);
-// $pageInfo .= $myJSON;
 $pageInfo .= ',';
 $pageInfo .= '"deleted":';
 $pageInfo .= count($downloadedFilesToDelete);
-// $myJSON = json_encode($downloadedFilesToDelete);
-// $pageInfo .= $myJSON;
 $pageInfo .= '}';
 echo $pageInfo;
 

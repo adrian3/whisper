@@ -10,6 +10,7 @@ if (defined('STDIN')) {
 require_once 'functions.php';
 
 $dropboxPosts = listFF($prefix."_dropbox/".$blogDirectory);
+$dropboxFiles = listFF($prefix."_dropbox/");
 
 $pages = generatePageData($dropboxFiles);
 $posts = generateBlogData($dropboxPosts);

@@ -9,10 +9,12 @@ ehthumbs.db
 Thumbs.db
 .dropbox
 
-/images
+images
 _admin/config.php
 _themes/Adrian
 _themes/foundation
 _themes/mdl
 _themes/bootstrap
 _themes/tachyons
+aotld
+galleries
