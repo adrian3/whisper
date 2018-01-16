@@ -119,6 +119,7 @@ function RemoveEmptySubFolders($path) {
 }
 
 function getPreviousNextPosts($postTitle,$postList) {
+  global $siteUrl;
   $postList = array_reverse($postList);
   for ($i=0; $i < count($postList); $i++) {
     $arrayIndex = $i;
@@ -128,11 +129,11 @@ function getPreviousNextPosts($postTitle,$postList) {
       $nextPostHTML = "";
       $prevPostIndex = $i-1;
       if ($prevPostIndex>=0) {
-        $previousPostHTML = '<p>Previous: <a href="/'.$postList[$prevPostIndex]->fileName.'">'.$postList[$prevPostIndex]->title.'</a></p>';
+        $previousPostHTML = '<p>Previous: <a href="'.$siteUrl.'/'.$postList[$prevPostIndex]->fileName.'">'.$postList[$prevPostIndex]->title.'</a></p>';
       }
       $nextPostIndex = $i+1;
       if ($nextPostIndex<count($postList)) {
-        $nextPostHTML = '<p>Next: <a href="/'.$postList[$nextPostIndex]->fileName.'">'.$postList[$nextPostIndex]->title.'</a></p>';
+        $nextPostHTML = '<p>Next: <a href="'.$siteUrl.'/'.$postList[$nextPostIndex]->fileName.'">'.$postList[$nextPostIndex]->title.'</a></p>';
       }
     }
   }
