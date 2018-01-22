@@ -1,0 +1,119 @@
+
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whisper as a Jekyll Alternative</title>
+
+    <link rel="alternate" type="application/rss+xml"  title="XML Feed for Whisper" href="https://adrian3.github.io/whisper/rss.xml" />
+    <link rel="alternate" title="JSON Feed for Whisper" type="application/json" href="https://adrian3.github.io/whisper/feed.json" />
+
+    <link href="https://fonts.googleapis.com/css?family=Vollkorn:400,400i,600,600i" rel="stylesheet">
+    <link rel="stylesheet" href="https://adrian3.github.io/whisper/_themes/minimal/css/whisper.css"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+
+<body class="2018-01-18-Whisper-as-Jekyll-Alternative">
+    <header>
+    <a class="logo" href="https://adrian3.github.io/whisper/index.html">Whisper</a>
+
+    <ul class="nav">
+      <li><a href="https://adrian3.github.io/whisper/setup.html">Setup</a></li>
+      <li><a href="https://adrian3.github.io/whisper/dropbox.html">Dropbox</a></li>
+      <li><a href="https://adrian3.github.io/whisper/archive.html">Blog</a></li>
+    </ul>
+  </header>
+  <div class="container">
+<h5 style="margin-bottom: -3.25em; color: #aaa;">January 18, 2018</h5><!---
+title: Whisper as a Jekyll Alternative
+date: Thu, 18 Jan 2018 12:00:00 MST
+published: true
+categories: 
+jquery: true
+--->
+<h1>How to Use Whisper as a Jekyll Alternative</h1>
+<p>Whisper let's you power your website with markdown files that you store in a Dropbox folder. Website management doesn't get much easier than that. However, there is one reason why you might want to add a tiny bit of complexity back into this dead-simple approach. That reason is free hosting on Github.</p>
+<p>Normally, Whisper works like this:</p>
+<ol>
+<li>You make a change to a text file on Dropbox</li>
+<li>Whisper notices the change and updated your wesbite accordingly</li>
+</ol>
+<p>Since Github can't monitor your Dropbox folder, the new process is going to be a bit more manual. It will look like this:</p>
+<ol>
+<li>You make a change to a file on Dropbox</li>
+<li>From your computer you trigger a Dropbox sync telling Whisper to rebuild your site</li>
+<li>You push the updated files to Github</li>
+</ol>
+<p>As you can see, the addition of step 2 is slightly annoying. This is the price we pay for free hosting. If you feel it is worth the hassle, this tutorial is for you.</p>
+<p>Today I am going to walk you through the process of using Whisper to create a free website hosted on Github. I will start at the very beginning, my goal is to explain the process in a way that you can understand even if you have never used Github before. Should we get started?</p>
+<h2>What you need to understand about Github hosting</h2>
+<p>So like I said, one of the great things about Github is that it allows you to host static HTML files, essentially offering a free way to host your website. Github won't give you any databases or server-side capabilities. The reason the hosting is free is because it just serves up basic, static files. This means you are limited to HTML, javascript, images, and CSS files. </p>
+<p>The typical way to create a Github website is to use <a href="https://jekyllrb.com">Jekyll</a>. Jekyll does a lot of great things but it can be hard for non-developers to understand how to use it. For example, here are Jekyll's Quick-start Instructions:</p>
+<pre><code>$ gem install jekyll bundler
+~ $ jekyll new my-awesome-site
+~ $ cd my-awesome-site
+~/my-awesome-site $ bundle exec jekyll serve
+# =&gt; Now browse to http://localhost:4000 </code></pre>
+<p>To a developer this code might seem natural. To the rest of us this is far from easy. You can read Jekyll's documentation for yourself, and if you don't come away scratching your head I congratulate you. </p>
+<p>Whisper has comparable features (static files, no database, blog capability) to Jekyll without requiring you to use the command line. The hardest part of using Whisper is going to involve a bit of PHP. But don't worry, I am going to walk you through that part.</p>
+<h2>Github Basics</h2>
+<p>If you have used Github before, you can skip this part. For everybody else, here is the absolute minimum you need to know. Github is a collection of public projects that anyone can download and use. The projects are contained in repositories or repos. You can download or &quot;clone&quot; a repo to your computer where you can view, edit, and run the code. </p>
+<p>Most developers interact with repos using the command line. They type commands into their terminal which in turn performs different tasks. I recommend <a href="https://guides.github.com/activities/hello-world/">learning the basics</a> but that's not mandatory. You can do everything we need without ever opening the terminal. Before we go any further, make sure you have done the following:</p>
+<ol>
+<li><a href="https://github.com/join">Create a Github account</a></li>
+<li><a href="https://desktop.github.com">Download the Github app</a></li>
+</ol>
+<p>With that out of the way, let me show you how easy it is create a website on Github using Whisper.</p>
+<h2>Creating Your Website</h2>
+<p>The first thing we need to do is download Whisper. Go to <a href="https://github.com/adrian3/whisper"><a href="https://github.com/adrian3/whisper">https://github.com/adrian3/whisper</a></a>. Notice that there is a green button that says &quot;Clone or download&quot; in the upper right. Click this button and download a zip file of the Whisper repo.</p>
+<p>You now have a folder on your computer named &quot;whisper-master.&quot; This is going to be the starting point of our website. Rename this folder to whatever you want your website project to be named. Now open the folder and look around. </p>
+<p>First we are going to do a little cleanup. Delete all the files in the main folder except for the folders named _admin, _dropbox, and _themes. Next delete everything inside the _dropbox folder. This gets us to a base state.</p>
+<p>Now create a text file inside the _dropbox folder named index.md. Type something in that file, perhaps just, &quot;Hello world.&quot; </p>
+<p>Next we need to configure Whisper. To do this look for the file named &quot;config-SAMPLE.php.&quot; Rename it &quot;config.php&quot; and open it in your text editor. </p>
+<p>Find these two lines:</p>
+<pre><code>$siteTitle = "Whisper";
+$siteUrl = "https://adrian3.github.io/whisper/";</code></pre>
+<p>Change the siteTitle to whatever you want your website to be named. Change siteURL to &quot;<a href="http://localhost:8888">http://localhost:8888</a>&quot; which is the address where we will be testing our website. </p>
+<p>Now in your browser, if you go to <a href="http://localhost:8888/_admin/"><a href="http://localhost:8888/_admin/">http://localhost:8888/_admin/</a></a> what do you see? You should get an error because we don't have PHP running. Let's fix that.</p>
+<p>Running PHP locally on your computer is probably going to be the trickiest part of this whole process. It is a bit beyond the scope of this tutorial but let me point you in the right direction. If you are a Windows user, <a href="https://www.google.com/search?rls=en&amp;q=how+to+run+php+on+windows&amp;ie=UTF-8&amp;oe=UTF-8">start here</a>. If you are on a Mac I recommend using <a href="https://www.mamp.info/en/">Mamp</a>. After you have installed MAMP, open up the preferences section and click on the web server tab. Change the document root so it points at the whisper-master folder we renamed earlier. Click OK then click &quot;Start Servers&quot; if they don't start automatically. </p>
+<p>Now if you go to <a href="http://localhost:8888/_admin/">http://localhost:8888/_admin/</a> you should see Whisper's admin screen. The index.md file we created earlier should appear in the &quot;Pages&quot; section with an option to &quot;Rebuild&quot; it. Click &quot;Rebuild.&quot; Now if you open the main folder you will see that a new &quot;index.html&quot; file. You can view preview this file by going to <a href="http://localhost:8888/"><a href="http://localhost:8888/index.html">http://localhost:8888/index.html</a></a>. What is going on here?</p>
+<p>Any file that you put in the _dropbox folder is eligible to be processed or &quot;Rebuilt&quot; from Markdown into HTML. Each file that is processed will get a header and a footer appended to it. The header and footer are customizable, simply change the header.php and footer.php files in the _templates/minimal/ folder. </p>
+<p>Experiment with this a bit. Edit the index.md file and rebuild it. Add more markdown files and rebuild them. You could manage your website this way, just by adding, removing and editing files in this _dropbox folder. Or, if you want to use Dropbox, you can <a href="../dropbox.html">learn more about that setup process here</a>. One thing to note is that if you decide to use Dropbox later be sure to backup what is currently in the _dropbox folder. That's because Whisper will keep the _dropbox folder in sync with your actual Dropbox folder so it will wipe away anything else.</p>
+<p>You are now at a point where you can adjust your website to your liking. Refer to <a href="https://github.com/adrian3/whisper"><a href="https://github.com/adrian3/whisper">https://github.com/adrian3/whisper</a></a> to learn what else you can do. </p>
+<h2>Publishing Your Website</h2>
+<p>Once you have your local website just the way you want it you are ready to publish it to Github. Here's how to do it. First, open the config.php file again and find this line: </p>
+<pre><code>$siteUrl = "http://localhost:8888";</code></pre>
+<p>Change it to:</p>
+<pre><code>// $siteUrl = "http://localhost:8888";
+$siteUrl = "https://adrian3.github.io/whisper/";</code></pre>
+<p>Be sure to replace &quot;adrian3&quot; with your Github username and &quot;whisper&quot; to the project name (whatever you renamed the whisper-master folder earlier). Notice how the local url is commented out with the two slashes? I like to leave this in my config files so I can quickly go back and forth between my local Whisper files and the Github ready files.</p>
+<p>Before we can push everything to Github we need to rebuild once more. The reason has to do with the url we just changed. Every time you rebuild your site it uses the siteURL to know where the files are in relation to each other. If you were to push the files to Github with the local urls the links in your pages would be broken. In order for the links to work on Github they need to point at Github, technically &quot;breaking&quot; your local links.</p>
+<p>Now we are ready to push our files to Github. Open up Github desktop. In the upper left click on the plus sign and select &quot;Add.&quot; Find your whisper site folder and select &quot;Create and Add Repository.&quot; This will create your repo. If you navigate to <a href="https://yourusername.github.io/yourprojectname/">https://yourusername.github.io/yourprojectname/</a> you will see your website. </p>
+<p>Now that we have created a repo for our project future changes to the website are made in a slightly different way. You should see your project in the sidebar of your Github desktop application. When you make changes to the project they will appear in the center column of the screen. When you are ready to update Github with your new files you will add a description then click &quot;Commit and Sync master.&quot;</p>
+<hr />
+<p>Congratulations. You have successfully created a free website using Whisper and Github. </p>
+<hr />
+<h2>Additional Resources</h2>
+<ul>
+<li><a href="https://daringfireball.net/projects/markdown/syntax">Markdown Syntax Documentation</a></li>
+<li><a href="https://help.github.com/articles/quick-start-setting-up-a-custom-domain/">How to use a custom domain with Github</a></li>
+<li><a href="https://adrian3.github.io/whisper/index.html">Whisper Documentation</a></li>
+<li><a href="https://adrian3.github.io/whisper/blog/2018/2018-01-07-How-To-Make-A-Post.html">How to create a blog post with Whisper</a></li>
+</ul>
+<hr style="margin: 70px 0;"><p>Previous: <a href="https://adrian3.github.io/whisper/blog/2018/2018-01-08-Jquery-Demo.html">Jquery Demo</a></p>
+
+</div>
+
+<footer>
+  <small style="color: #ccc;">&copy; 2018 &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <a style="color: #ccc;" href="https://adrian3.github.io/whisper/humans.txt">humans.txt</a> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <a style="color: #ccc;" href="https://adrian3.github.io/whisper/sitemap.xml">sitemap.xml</a> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <a style="color: #ccc;" href="https://adrian3.github.io/whisper/">powered by a whisper</a></small>
+</footer>
+
+<script type="text/javascript">
+  // {{customJavascript}}
+</script>
+</body>
+</html>

@@ -82,6 +82,8 @@ if ($published!=="false") {
       $prevNextLinks = getPreviousNextPosts($title,$postList->posts);
       $footer = str_replace('<!-- {{prevNextLinks}} -->',$prevNextLinks,$footer);
       $header = str_replace('<div class="postDate" style="display:none;"></div>',$prettyDate,$header);
+
+      $header = $header.'<h5 style="margin-bottom: -3.25em; color: #aaa;">'.$prettyDate.'</h5>';
     }
 
     $html = $header.$html.$footer;

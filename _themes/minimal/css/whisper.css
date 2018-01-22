@@ -121,7 +121,8 @@ a:active {
   text-decoration: underline;
 }
 
-ul {
+ul,
+ol {
   margin-bottom: 1.3rem;
 }
 
@@ -247,6 +248,7 @@ button {
 .container h4,
 .container h5,
 .container ul,
+.container ol,
 .container section {
   max-width: 28rem;
   margin-right: auto;

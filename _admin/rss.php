@@ -13,12 +13,16 @@ function generateRssXml($dropboxFiles){
   global $prefix;
   global $siteTitle;
   global $siteUrl;
+  global $rssFeedCount;
   $rssFeed = array();
+  $dropboxFiles = array_reverse($dropboxFiles);
 
-  for ($i=0; $i < count($dropboxFiles); $i++) {
+  for ($i=0; $i < $rssFeedCount; $i++) {
     $content = file_get_contents($dropboxFiles[$i]);
     $yaml = getBetween($content,"<!---","--->");
     $file = cleanFileName($dropboxFiles[$i]);
+    $file = str_replace(" ","%20",$file);
+    $file = str_replace(".md",".html",$file);
     $title = getBetween($yaml,"title: ","\n");
     $categories = getBetween($yaml,"categories: ","\n");
     $description = getBetween($yaml,"description: ","\n");
@@ -27,16 +31,21 @@ function generateRssXml($dropboxFiles){
     $date=date_create($publishedDate);
     $publishedDate = date_format($date,"D, d M Y H:i:s O");
 
-    $item=array(
-      "link"=>$siteUrl.$blogDirectory.'/'.str_replace(" ","%20",$file),
-      "source"=>$siteUrl.$blogDirectory.'/'.$file,
-      "description"=>$description,
-      "id"=>$file,
-      "title"=>$title,
-      "pubDate"=>$publishedDate,
-      "category"=>$categories
-    );
-    array_push($rssFeed,$item);
+    if ($published!=="false") {
+      $item=array(
+        "link"=>$siteUrl.$blogDirectory.'/'.$file,
+        "source"=>$siteUrl."/".$blogDirectory.'/'.$file,
+        "description"=>$description,
+        "id"=>$file,
+        "title"=>$title,
+        "pubDate"=>$publishedDate,
+        "category"=>$categories
+      );
+      array_push($rssFeed,$item);
+    }
+    else {
+      $rssFeedCount++;
+    }
   }
 
   $rssTitle = $siteTitle.": RSS Feed";
@@ -54,12 +63,11 @@ function generateRssXml($dropboxFiles){
       $now =  date("YmdHis"); // get current time
 
       for ($i=0; $i < count($rssFeed); $i++) {
-
         $xml .= '<item>' . "\n";
         $xml .= '<title>' . $rssFeed[$i]['title'] . '</title>' . "\n";
         $xml .= '<link>' . $rssFeed[$i]['link'] . '</link>' . "\n";
         $xml .= '<description>' . $rssFeed[$i]['description'] . '</description>' . "\n";
-        $xml .= '<guid>' . $siteUrl.str_replace(" ","%20",$rssFeed[$i]['id']) . '</guid>' . "\n";
+        $xml .= '<guid>' . $siteUrl."/".str_replace(" ","%20",$rssFeed[$i]['id']) . '</guid>' . "\n";
         $xml .= '<pubDate>' . $rssFeed[$i]['pubDate'] . '</pubDate>' . "\n";
         if($rssFeed[$i]['category']){
           $xml .= '<category>' . $rssFeed[$i]['category'] . '</category>' . "\n";
@@ -79,12 +87,18 @@ function generateRssXml($dropboxFiles){
 
 function generateRssJson($dropboxFiles){
   global $prefix;
+  global $rssFeedCount;
+  global $siteUrl;
   $rssFeed = array();
   $items = array();
-  for ($i=0; $i < count($dropboxFiles); $i++) {
+  $dropboxFiles = array_reverse($dropboxFiles);
+
+  for ($i=0; $i < $rssFeedCount; $i++) {
     $content = file_get_contents($dropboxFiles[$i]);
     $yaml = getBetween($content,"<!---","--->");
     $file = cleanFileName($dropboxFiles[$i]);
+    $file = str_replace(" ","%20",$file);
+    $file = $siteUrl."/".str_replace(".md",".html",$file);
     $title = getBetween($yaml,"title: ","\n");
     $categories = getBetween($yaml,"categories: ","\n");
     $description = getBetween($yaml,"description: ","\n");
@@ -93,21 +107,26 @@ function generateRssJson($dropboxFiles){
     $date=date_create($publishedDate);
     $publishedDate = date_format($date,"Y-m-d\TH:i:sP");
 
-    $item=array(
-      "url"=>$file,
-      "content_html"=>$description,
-      "id"=>$file,
-      "title"=>$title,
-      "date_published"=>$publishedDate
-    );
-    array_push($items,$item);
+    if ($published!=="false") {
+      $item=array(
+        "url"=>$file,
+        "content_html"=>$description,
+        "id"=>$file,
+        "title"=>$title,
+        "date_published"=>$publishedDate
+      );
+      array_push($items,$item);
+    }
+    else {
+      $rssFeedCount++;
+    }
   }
 
   $allitems=array(
     "version"=> "https://jsonfeed.org/version/1",
     "title"=> $siteTitle.": RSS Feed",
-    "home_page_url"=> $prefix,
-    "feed_url"=> $prefix."/feed.json",
+    "home_page_url"=> $siteUrl,
+    "feed_url"=> $siteUrl."/feed.json",
     "items"=>$items
   );
   array_push($rssFeed,$allitems);
@@ -135,7 +154,7 @@ function generateSitemap($fullFileList) {
 
   for ($i=0; $i < count($fullFileList); $i++) {
      $sitemap .= '<url><loc>';
-     $sitemap .= $prefix.$fullFileList[$i];
+     $sitemap .= $siteUrl.$fullFileList[$i];
      $sitemap .= '</loc></url>';
   }
       $sitemap .= '</urlset>';
@@ -186,9 +205,8 @@ function generateArchive() {
 }
 
 $fullFileList = array();
-$dropboxFolders = array();
 $dropboxFiles = array();
-
+$dropboxFiles = listFF($prefix."_dropbox/");
 $dropboxPosts = listFF($prefix."_dropbox/".$blogDirectory);
 generateRssJson($dropboxPosts);
 generateRssXml($dropboxPosts);

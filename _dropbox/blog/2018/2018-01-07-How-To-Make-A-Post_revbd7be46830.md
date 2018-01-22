@@ -5,7 +5,7 @@ published: true
 categories: Whisper, How-To, Blog
 --->
 
-# How To Make A Post With Whisper
+# How To Make A Blog Post With Whisper
 
 Blog posts are created from Markdown files saved in you blog folder in Dropbox. You can change the name of this folder to whatever you want, just remember to update the config.php file variable $blogDirectory to match the name of your folder.
 

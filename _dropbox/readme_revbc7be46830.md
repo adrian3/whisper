@@ -5,6 +5,8 @@ published: true
 
 # About Whisper
 
+[Read Full Documentation](https://adrian3.github.io/whisper/index.html)
+
 Whisper generates a website from markdown files stored in Dropbox. 
 
 If you love Markdown (and who doesn't?) and hate the complexity of everything else about managing a website, Whisper is for you. Once you have Whisper set up, any changes you make to your markdown files will get converted to HTML and pushed to your website. 
