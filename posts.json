@@ -1,1 +1,42 @@
-{"categories":["Whisper","How-To","Blog","Demo"],"posts":[{"title":"Whisper as a Jekyll Alternative","fileName":"blog\/2018\/2018-01-18-Whisper-as-Jekyll-Alternative.html","dropboxFileName":"\/blog\/2018\/2018-01-18-Whisper-as-Jekyll-Alternative_revc07be46830.md","categories":[],"date_published":"2018-01-18T12:00:00-07:00"},{"title":"Jquery Demo","fileName":"blog\/2018\/2018-01-08-Jquery-Demo.html","dropboxFileName":"\/blog\/2018\/2018-01-08-Jquery-Demo_revad7be46830.md","categories":[],"date_published":"2018-01-14T12:00:00-07:00"},{"title":"How To Make A Post With Whisper","fileName":"blog\/2018\/2018-01-07-How-To-Make-A-Post.html","dropboxFileName":"\/blog\/2018\/2018-01-07-How-To-Make-A-Post_revbd7be46830.md","categories":["Whisper","How-To","Blog"],"date_published":"2018-01-13T12:00:00-07:00"},{"title":"Markdown Kitchen Sink","fileName":"blog\/2018\/2018-01-06-Kitchen-Sink.html","dropboxFileName":"\/blog\/2018\/2018-01-06-Kitchen-Sink_revab7be46830.md","categories":["Whisper","Demo"],"date_published":"2018-01-12T12:00:00-07:00"},{"title":"Whisper Themes","fileName":"\/themes.html","dropboxFileName":"\/\/themes_revb57be46830.md","categories":[],"date_published":"2018-01-22T05:01:08+01:00"},{"title":"Whisper Setup","fileName":"\/setup.html","dropboxFileName":"\/\/setup_revb87be46830.md","categories":[],"date_published":"2018-01-22T05:01:08+01:00"},{"title":"About Whisper","fileName":"\/readme.html","dropboxFileName":"\/\/readme_revbc7be46830.md","categories":[],"date_published":"2018-01-22T05:01:08+01:00"},{"title":"Introducing Whisper","fileName":"\/index.html","dropboxFileName":"\/\/index_revb77be46830.md","categories":[],"date_published":"2018-01-22T05:01:08+01:00"},{"title":"Introducing Whisper","fileName":"\/images\/index.html","dropboxFileName":"\/\/images\/index_revb17be46830.md","categories":[],"date_published":"2018-01-22T05:01:08+01:00"},{"title":"Dropbox Sync Setup","fileName":"\/dropbox.html","dropboxFileName":"\/\/dropbox_revaf7be46830.md","categories":[],"date_published":"2018-01-22T05:01:08+01:00"},{"title":"About the Config File","fileName":"\/config.html","dropboxFileName":"\/\/config_revae7be46830.md","categories":[],"date_published":"2018-01-22T05:01:08+01:00"},{"title":"Whisper as a Jekyll Alternative","fileName":"\/blog\/2018\/2018-01-18-Whisper-as-Jekyll-Alternative.html","dropboxFileName":"\/\/blog\/2018\/2018-01-18-Whisper-as-Jekyll-Alternative_revc07be46830.md","categories":[],"date_published":"2018-01-18T12:00:00-07:00"},{"title":"Jquery Demo","fileName":"\/blog\/2018\/2018-01-08-Jquery-Demo.html","dropboxFileName":"\/\/blog\/2018\/2018-01-08-Jquery-Demo_revad7be46830.md","categories":[],"date_published":"2018-01-14T12:00:00-07:00"},{"title":"How To Make A Post With Whisper","fileName":"\/blog\/2018\/2018-01-07-How-To-Make-A-Post.html","dropboxFileName":"\/\/blog\/2018\/2018-01-07-How-To-Make-A-Post_revbd7be46830.md","categories":["Whisper","How-To","Blog"],"date_published":"2018-01-13T12:00:00-07:00"},{"title":"Markdown Kitchen Sink","fileName":"\/blog\/2018\/2018-01-06-Kitchen-Sink.html","dropboxFileName":"\/\/blog\/2018\/2018-01-06-Kitchen-Sink_revab7be46830.md","categories":["Whisper","Demo"],"date_published":"2018-01-12T12:00:00-07:00"}]}
+{"categories":[
+    "Whisper",
+    "How-To",
+    "Blog",
+    "Demo"
+],"posts":[
+    {
+        "title": "Whisper as a Jekyll Alternative",
+        "fileName": "\/blog\/2018\/2018-01-18-Whisper-as-Jekyll-Alternative.html",
+        "dropboxFileName": "\/blog\/2018\/2018-01-18-Whisper-as-Jekyll-Alternative_revc07be46830.md",
+        "categories": [],
+        "date_published": "2018-01-18T12:00:00-07:00"
+    },
+    {
+        "title": "Jquery Demo",
+        "fileName": "\/blog\/2018\/2018-01-08-Jquery-Demo.html",
+        "dropboxFileName": "\/blog\/2018\/2018-01-08-Jquery-Demo_revad7be46830.md",
+        "categories": [],
+        "date_published": "2018-01-14T12:00:00-07:00"
+    },
+    {
+        "title": "How To Make A Post With Whisper",
+        "fileName": "\/blog\/2018\/2018-01-07-How-To-Make-A-Post.html",
+        "dropboxFileName": "\/blog\/2018\/2018-01-07-How-To-Make-A-Post_revbd7be46830.md",
+        "categories": [
+            "Whisper",
+            "How-To",
+            "Blog"
+        ],
+        "date_published": "2018-01-13T12:00:00-07:00"
+    },
+    {
+        "title": "Markdown Kitchen Sink",
+        "fileName": "\/blog\/2018\/2018-01-06-Kitchen-Sink.html",
+        "dropboxFileName": "\/blog\/2018\/2018-01-06-Kitchen-Sink_revab7be46830.md",
+        "categories": [
+            "Whisper",
+            "Demo"
+        ],
+        "date_published": "2018-01-12T12:00:00-07:00"
+    }
+]}

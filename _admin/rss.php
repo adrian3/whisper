@@ -13,7 +13,7 @@ function generateRssXml($dropboxFiles){
   global $prefix;
   global $siteTitle;
   global $siteUrl;
-  global $rssFeedCount;
+  $rssFeedCount = count($dropboxFiles);
   $rssFeed = array();
   $dropboxFiles = array_reverse($dropboxFiles);
 
@@ -87,8 +87,8 @@ function generateRssXml($dropboxFiles){
 
 function generateRssJson($dropboxFiles){
   global $prefix;
-  global $rssFeedCount;
   global $siteUrl;
+  $rssFeedCount = count($dropboxFiles);
   $rssFeed = array();
   $items = array();
   $dropboxFiles = array_reverse($dropboxFiles);
@@ -131,7 +131,7 @@ function generateRssJson($dropboxFiles){
   );
   array_push($rssFeed,$allitems);
 
-  $myJSON = json_encode($rssFeed);
+  $myJSON = json_encode($rssFeed, JSON_PRETTY_PRINT);
   $myJSON = trim($myJSON, '[]');
   $myfile = fopen($prefix."feed.json", "w") or die("Unable to open file!");
   fwrite($myfile, $myJSON);
@@ -206,9 +206,10 @@ function generateArchive() {
 
 $fullFileList = array();
 $dropboxFiles = array();
-$dropboxFiles = listFF($prefix."_dropbox/");
 $dropboxPosts = listFF($prefix."_dropbox/".$blogDirectory);
-generateRssJson($dropboxPosts);
+$dropboxFiles = array(); // clear the array before creating next list
+$dropboxFiles = listFF($prefix."_dropbox/");
+echo generateRssJson($dropboxPosts);
 generateRssXml($dropboxPosts);
 generateBlogData($dropboxPosts);
 generatePageData($dropboxFiles);

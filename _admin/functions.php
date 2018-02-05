@@ -78,14 +78,18 @@ function listFF($dir){
     foreach($ffs as $ff){
       if(is_file($dir.'/'.$ff)) {
         if ($ff!==".DS_Store") {
-          array_push($dropboxFiles,$dir.'/'.$ff);
+          if (!in_array($dropboxFiles,$dir.'/'.$ff)) {
+            array_push($dropboxFiles,$dir.'/'.$ff);
+          }
         }
       }
       else if(is_dir($dir.'/'.$ff)) {
         // just to be safe, make sure the folders wouldn't overwrite the important admin folders later on
         if ($ff!=="_admin"&&$ff!=="_templates"&&$ff!=="_dropbox"&&$ff!=="drafts") {
           listFF($dir.'/'.$ff);
-          array_push($dropboxFolders,$dir.'/'.$ff);
+          if (!in_array($dropboxFolders,$dir.'/'.$ff)) {
+            array_push($dropboxFolders,$dir.'/'.$ff);
+          }
         }
       }
     }
@@ -129,11 +133,11 @@ function getPreviousNextPosts($postTitle,$postList) {
       $nextPostHTML = "";
       $prevPostIndex = $i-1;
       if ($prevPostIndex>=0) {
-        $previousPostHTML = '<p>Previous: <a href="'.$siteUrl.'/'.$postList[$prevPostIndex]->fileName.'">'.$postList[$prevPostIndex]->title.'</a></p>';
+        $previousPostHTML = '<p>Previous: <a href="'.$siteUrl.''.$postList[$prevPostIndex]->fileName.'">'.$postList[$prevPostIndex]->title.'</a></p>';
       }
       $nextPostIndex = $i+1;
       if ($nextPostIndex<count($postList)) {
-        $nextPostHTML = '<p>Next: <a href="'.$siteUrl.'/'.$postList[$nextPostIndex]->fileName.'">'.$postList[$nextPostIndex]->title.'</a></p>';
+        $nextPostHTML = '<p>Next: <a href="'.$siteUrl.''.$postList[$nextPostIndex]->fileName.'">'.$postList[$nextPostIndex]->title.'</a></p>';
       }
     }
   }
@@ -151,7 +155,7 @@ function generateBlogData($dropboxFiles){
     $content = file_get_contents($dbF[$i]);
     $yaml = getBetween($content,"<!---","--->");
     if ($yaml) {
-      $file = cleanFileName($dbF[$i]);
+      $file = '/'.cleanFileName($dbF[$i]);
       $title = getBetween($yaml,"title: ","\n");
       $description = getBetween($yaml,"description: ","\n");
       $published = getBetween($yaml,"published: ","\n");
@@ -172,7 +176,7 @@ function generateBlogData($dropboxFiles){
         }
 
         if ($published!=="false") {
-      $dropboxPath =str_replace($prefix."_dropbox",'',$dbF[$i]);
+      $dropboxPath = str_replace($prefix."_dropbox",'',$dbF[$i]);
       $item=array(
         "title"=>$title,
         "fileName"=>str_replace('.md','.html',$file),
@@ -181,17 +185,17 @@ function generateBlogData($dropboxFiles){
         "date_published"=>$publishedDate
       );
       array_push($writingList,$item);
-      array_push($fullFileList,str_replace('.md','.html',$file));
+      array_push($fullFileList,renameMD($file));
       }
     }
   }
 
   $postInfo = '{"categories":';
-  $categoryJSON = json_encode($allCategories);
+  $categoryJSON = json_encode($allCategories, JSON_PRETTY_PRINT);
   $postInfo .= $categoryJSON;
 
   $postInfo .= ',"posts":';
-  $myJSON = json_encode($writingList);
+  $myJSON = json_encode($writingList, JSON_PRETTY_PRINT);
   $postInfo .= $myJSON;
   $postInfo .= '}';
   // echo $postInfo;
@@ -212,6 +216,9 @@ function generatePageData($dropboxFiles) {
   for ($i=0; $i < count($dropboxFiles); $i++) {
     if (strpos($dropboxFiles[$i], $blogDirectory."/") !== false) {
       // skip blog posts (anthing with "blog/" in it's path)
+    }
+    else if (strpos($dropboxFiles[$i],'.jpg') !== false||strpos($dropboxFiles[$i],'.png') !== false||strpos($dropboxFiles[$i],'.gif') !== false) {
+      // skip images
     }
     else {
       $originalFile = $dropboxFiles[$i];
@@ -239,7 +246,7 @@ function generatePageData($dropboxFiles) {
     }
   }
   $pageInfo = '{"pages":';
-  $myJSON = json_encode($pages);
+  $myJSON = json_encode($pages, JSON_PRETTY_PRINT);
   $pageInfo .= $myJSON;
   $pageInfo .= '}';
   // echo $pageInfo;
