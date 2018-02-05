@@ -209,7 +209,7 @@ $dropboxFiles = array();
 $dropboxPosts = listFF($prefix."_dropbox/".$blogDirectory);
 $dropboxFiles = array(); // clear the array before creating next list
 $dropboxFiles = listFF($prefix."_dropbox/");
-echo generateRssJson($dropboxPosts);
+generateRssJson($dropboxPosts);
 generateRssXml($dropboxPosts);
 generateBlogData($dropboxPosts);
 generatePageData($dropboxFiles);
