@@ -133,11 +133,11 @@ function getPreviousNextPosts($postTitle,$postList) {
       $nextPostHTML = "";
       $prevPostIndex = $i-1;
       if ($prevPostIndex>=0) {
-        $previousPostHTML = '<p>Previous: <a href="'.$siteUrl.''.$postList[$prevPostIndex]->fileName.'">'.$postList[$prevPostIndex]->title.'</a></p>';
+        $previousPostHTML = '<p>Previous: <a href="'.$postList[$prevPostIndex]->fileName.'">'.$postList[$prevPostIndex]->title.'</a></p>';
       }
       $nextPostIndex = $i+1;
       if ($nextPostIndex<count($postList)) {
-        $nextPostHTML = '<p>Next: <a href="'.$siteUrl.''.$postList[$nextPostIndex]->fileName.'">'.$postList[$nextPostIndex]->title.'</a></p>';
+        $nextPostHTML = '<p>Next: <a href="'.$postList[$nextPostIndex]->fileName.'">'.$postList[$nextPostIndex]->title.'</a></p>';
       }
     }
   }
@@ -145,6 +145,7 @@ function getPreviousNextPosts($postTitle,$postList) {
 }
 
 function generateBlogData($dropboxFiles){
+  global $siteUrl;
   global $prefix;
   global $fullFileList;
   $allCategories = array();
@@ -179,7 +180,7 @@ function generateBlogData($dropboxFiles){
       $dropboxPath = str_replace($prefix."_dropbox",'',$dbF[$i]);
       $item=array(
         "title"=>$title,
-        "fileName"=>str_replace('.md','.html',$file),
+        "fileName"=>$siteUrl.str_replace('.md','.html',$file),
         "dropboxFileName"=>$dropboxPath,
         "categories"=>$postCategories,
         "date_published"=>$publishedDate
@@ -207,6 +208,7 @@ function generateBlogData($dropboxFiles){
 }
 
 function generatePageData($dropboxFiles) {
+  global $siteUrl;
   global $prefix;
   global $fullFileList;
   global $blogDirectory;
@@ -235,7 +237,7 @@ function generatePageData($dropboxFiles) {
       if ($published!=="false") {
         $page=array(
           "title"=>$title,
-          "fileName"=>$newFileHTML,
+          "fileName"=>$siteUrl.$newFileHTML,
           "dropboxFileName"=>$originalFile,
           "pageEditDate"=>$pageEditDate
         );
