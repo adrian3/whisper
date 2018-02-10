@@ -6,7 +6,7 @@ $siteTitle = "Whisper";
 $siteUrl = "https://adrian3.github.io/whisper/";
 $copyright = "2018";
 $blogDirectory = "blog"; // this needs to match the name of the folder in your dropbox folder where your blog posts live
-$theme = "minimal"; // or "yourFolderName" (if you make a custom theme)
+$theme = "whisper"; // or "yourFolderName" (if you make a custom theme)
 $password = ""; // optional but recommended. This is simply passed in the url to add a tiny bit of privacy to the admin screens
 $rssFeedCount = 10; // set to how many items you want in your feeds
 
