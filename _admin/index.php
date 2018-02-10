@@ -150,7 +150,7 @@ function formatDate(d){
       // console.log(pages);
       for (var i = 0; i < posts.length; i++) {
         shortDropboxFileName = removePrefix(posts[i].dropboxFileName);
-        $('.posts').append('<div class="adminRow"><div class="column1">'+posts[i].title+' <br><a href="../'+posts[i].fileName+'">View</a> <span style="margin:0 20px;">|</span> <a onclick="processFile(\''+shortDropboxFileName+'\')">Rebuild</a> <span class='+classSafe(shortDropboxFileName)+'></span></div><div class="column2">Published: <br>'+formatDate(posts[i].date_published)+'</div></div>');
+        $('.posts').append('<div class="adminRow"><div class="column1">'+posts[i].title+' <br><a href="'+posts[i].fileName+'">View</a> <span style="margin:0 20px;">|</span> <a onclick="processFile(\''+shortDropboxFileName+'\')">Rebuild</a> <span class='+classSafe(shortDropboxFileName)+'></span></div><div class="column2">Published: <br>'+formatDate(posts[i].date_published)+'</div></div>');
       }
       for (var i = 0; i < pages.length; i++) {
         shortDropboxFileName = removePrefix(pages[i].dropboxFileName);
@@ -158,7 +158,7 @@ function formatDate(d){
         if (pages[i].title=="") {
           pageTitle = pages[i].fileName;
         }
-        $('.pages').append('<div class="adminRow"><div class="column1">'+pageTitle+' <br><a href="../'+pages[i].fileName+'">View</a> <span style="margin:0 20px;">|</span> <a onclick="processFile(\''+shortDropboxFileName+'\')">Rebuild</a> <span class='+classSafe(shortDropboxFileName)+'></span></div><div class="column2">Created: <br>'+formatDate(pages[i].pageEditDate)+'</div></div>');
+        $('.pages').append('<div class="adminRow"><div class="column1">'+pageTitle+' <br><a href="'+pages[i].fileName+'">View</a> <span style="margin:0 20px;">|</span> <a onclick="processFile(\''+shortDropboxFileName+'\')">Rebuild</a> <span class='+classSafe(shortDropboxFileName)+'></span></div><div class="column2">Created: <br>'+formatDate(pages[i].pageEditDate)+'</div></div>');
       }
     });
   }

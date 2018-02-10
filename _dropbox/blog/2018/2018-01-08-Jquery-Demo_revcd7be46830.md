@@ -2,7 +2,7 @@
 title: Jquery Demo
 date: Sun, 08 Jan 2018 12:00:00 MST
 published: true
-categories: 
+categories: Whisper, How-To, Blog, Jquery
 jquery: true
 --->
 

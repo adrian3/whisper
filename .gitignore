@@ -8,6 +8,8 @@
 ehthumbs.db
 Thumbs.db
 .dropbox
+*.sublime-project
+*.sublime-workspace
 
 images
 _admin/config.php

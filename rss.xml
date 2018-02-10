@@ -4,11 +4,20 @@
 <link>https://adrian3.github.io/whisper/rss.xml</link>
 <description>Whisper: RSS Feed</description>
 <item>
+<title>Powered by a Whisper</title>
+<link>https://adrian3.github.io/whisper/blog/2018/2018-01-27-Powered-by-a-Whisper.html</link>
+<description></description>
+<guid>https://adrian3.github.io/whisper/blog/2018/2018-01-27-Powered-by-a-Whisper.html</guid>
+<pubDate>Sat, 27 Jan 2018 10:40:40 -0700</pubDate>
+<category>Whisper, Blog</category>
+</item>
+<item>
 <title>Whisper as a Jekyll Alternative</title>
 <link>https://adrian3.github.io/whisper/blog/2018/2018-01-18-Whisper-as-Jekyll-Alternative.html</link>
 <description></description>
 <guid>https://adrian3.github.io/whisper/blog/2018/2018-01-18-Whisper-as-Jekyll-Alternative.html</guid>
 <pubDate>Thu, 18 Jan 2018 12:00:00 -0700</pubDate>
+<category>Whisper, How-To, Blog, Jekyll</category>
 </item>
 <item>
 <title>Jquery Demo</title>
@@ -16,6 +25,7 @@
 <description></description>
 <guid>https://adrian3.github.io/whisper/blog/2018/2018-01-08-Jquery-Demo.html</guid>
 <pubDate>Sun, 14 Jan 2018 12:00:00 -0700</pubDate>
+<category>Whisper, How-To, Blog, Jquery</category>
 </item>
 <item>
 <title>How To Make A Post With Whisper</title>

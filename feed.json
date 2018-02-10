@@ -6,6 +6,13 @@
         "feed_url": "https:\/\/adrian3.github.io\/whisper\/feed.json",
         "items": [
             {
+                "url": "https:\/\/adrian3.github.io\/whisper\/blog\/2018\/2018-01-27-Powered-by-a-Whisper.html",
+                "content_html": "",
+                "id": "https:\/\/adrian3.github.io\/whisper\/blog\/2018\/2018-01-27-Powered-by-a-Whisper.html",
+                "title": "Powered by a Whisper",
+                "date_published": "2018-01-27T10:40:40-07:00"
+            },
+            {
                 "url": "https:\/\/adrian3.github.io\/whisper\/blog\/2018\/2018-01-18-Whisper-as-Jekyll-Alternative.html",
                 "content_html": "",
                 "id": "https:\/\/adrian3.github.io\/whisper\/blog\/2018\/2018-01-18-Whisper-as-Jekyll-Alternative.html",

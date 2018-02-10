@@ -1,5 +1,5 @@
 <!---
-title: About Whisper
+title: Introducing Whisper
 published: true
 --->
 
@@ -17,19 +17,6 @@ Whisper generates your website from markdown files stored in Dropbox. Once you h
 - No templating languages
 - No messing with HTML (unless you want to)
 
-[Read Full Documentation](https://adrian3.github.io/whisper/index.html)
+If you love Markdown (and who doesn't?) and hate the complexity of everything else about managing a website, Whisper is for you.  
 
-## Setup
-For complete instructions on how to set up Whisper read [https://adrian3.github.io/whisper/setup.html](https://adrian3.github.io/whisper/setup.html).
-
-## Road Map
-- Add themes
-- Minification
-- Add support for blog comments (disqus?)
-- Add flexibility with how the date format of blog posts are handled
-- Automated Dropbox authentication to simplify setup
-- Is there any interest in a hosted version of Whisper where you could create websites without a hosting plan?
-
-## Credits
-- Dropbox PHP SDK (https://github.com/kunalvarma05/dropbox-php-sdk)
-- Parsedown (http://parsedown.org)
+Github Repo: [https://github.com/adrian3/whisper](https://github.com/adrian3/whisper)
