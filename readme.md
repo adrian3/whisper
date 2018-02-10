@@ -5,7 +5,7 @@ published: true
 
 # Introducing Whisper 
 
-[The web has become bloated and gluttonous](https://github.com/adrian3/whisper/blog/2018/2018-01-27-Powered-by-a-Whisper.html). Whisper is a tool that removes the gunk and focuses on the essentials. It is just you and your words. Save your files and Whisper does the rest. Here is how it works...
+[The web has become bloated and gluttonous](https://adrian3.github.com/whisper/blog/2018/2018-01-27-Powered-by-a-Whisper.html). Whisper is a tool that removes the gunk and focuses on the essentials. It is just you and your words. Save your files and Whisper does the rest. Here is how it works...
 
 Whisper generates your website from markdown files stored in Dropbox. Once you have Whisper set up, any changes you make to your markdown files will get converted to HTML and pushed to your website. That's it.
 
