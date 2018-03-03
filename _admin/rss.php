@@ -14,6 +14,8 @@ function generateRssXml($dropboxFiles){
   global $siteTitle;
   global $siteUrl;
   $rssFeedCount = count($dropboxFiles);
+  $feedLimit = 10; // The max number of items you want in your feed
+  $feedIterator = 0;
   $rssFeed = array();
   $dropboxFiles = array_reverse($dropboxFiles);
 
@@ -41,7 +43,10 @@ function generateRssXml($dropboxFiles){
         "pubDate"=>$publishedDate,
         "category"=>$categories
       );
-      array_push($rssFeed,$item);
+      if ($feedIterator<=$feedLimit) {
+        array_push($rssFeed,$item);
+        $feedIterator++;
+      }
     }
     else {
       $rssFeedCount++;
@@ -89,6 +94,8 @@ function generateRssJson($dropboxFiles){
   global $prefix;
   global $siteUrl;
   $rssFeedCount = count($dropboxFiles);
+  $feedLimit = 10; // The max number of items you want in your feed
+  $feedIterator = 0;
   $rssFeed = array();
   $items = array();
   $dropboxFiles = array_reverse($dropboxFiles);
@@ -115,7 +122,10 @@ function generateRssJson($dropboxFiles){
         "title"=>$title,
         "date_published"=>$publishedDate
       );
-      array_push($items,$item);
+      if ($feedIterator<=$feedLimit) {
+        array_push($items,$item);
+        $feedIterator++;
+      }
     }
     else {
       $rssFeedCount++;
