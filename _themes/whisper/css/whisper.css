@@ -102,6 +102,9 @@ h6 {
   font-weight: inherit;
 }
 
+h1:first-of-type {
+  margin-top: 0;
+}
 
 p {
   color: #555;
@@ -236,7 +239,7 @@ button {
 
 .container {
   margin: 0 auto;
-  padding: 0 10px;
+  padding: 0;
   overflow: hidden;
 }
 
@@ -356,3 +359,10 @@ h4 {font-size: 1.333em;}
 small {font-size: 0.75em;}
 
 /* end type scale */
+
+/* Small only */
+@media screen and (max-width: 39.9375em) {
+  .container {
+    padding: 0 10px;
+  }
+}

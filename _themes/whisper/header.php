@@ -1,4 +1,9 @@
-<?php include_once "../_admin/config.php"; ?>
+<?php
+// don't get configs if run from cron job:
+if (!defined('STDIN')) {
+ include_once "../../_admin/config.php";
+}
+  ?>
 
 <!doctype html>
 <html class="no-js" lang="en">
