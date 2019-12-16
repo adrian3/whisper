@@ -37,7 +37,7 @@ function listFolderFiles($dir){
 
     foreach($ffs as $ff){
       if(is_file($dir.'/'.$ff)) {
-        if ($ff!==".DS_Store"&&$ff!==".config.codekit3") {
+        if ($ff!==".DS_Store"&&$ff!==".config.codekit3"&&$ff!==".Ulysses-Group") {
 
           $path = $dir.'/'.$ff;
           $ext = pathinfo($path, PATHINFO_EXTENSION);
